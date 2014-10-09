@@ -3,5 +3,5 @@
 #include "Node.h"
 
 void rightRotate(Node **nodePtr){
-
+	
 }
