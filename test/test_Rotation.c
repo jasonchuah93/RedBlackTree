@@ -3,7 +3,7 @@
 #include "Node.h"
 #include "Rotation.h"
 
-Node node1,node5,node10,node15;
+Node node1,node5,node10,node15,node20,node30;
 
 void setNode(Node *target, Node *left, Node *right, char color){
 	target->left = left;
@@ -23,6 +23,8 @@ void setUp(void){
 	resetNode(&node5,5);
 	resetNode(&node10,10);
 	resetNode(&node15,15);
+	resetNode(&node20,20);
+	resetNode(&node30,30);
 }
 void tearDown(void){}
 
@@ -52,6 +54,70 @@ void test_right_rotate_3_nodes(void){
 	TEST_ASSERT_EQUAL_PTR(root,&node5);
 }
 
+/**
+*		root			root
+*		 /				  /
+*		10			 	 /
+*		/ \				5
+*	  5	   15 --->	   / \
+*	/				  1   10
+*  1					   \
+*						    15	
+**/
+                             
+void test_right_rotate_4_nodes(void){
+	setNode(&node1,NULL,NULL,'b');
+	setNode(&node15,NULL,NULL,'b');
+	setNode(&node5,&node1,NULL,'b');
+	setNode(&node10,&node5,&node15,'b');
+	Node *root = &node10;
+	
+	rightRotate(&root);
+	TEST_ASSERT_EQUAL_PTR(node1.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node1.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node15.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node15.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node10.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node10.right,&node15);
+	TEST_ASSERT_EQUAL_PTR(node5.left,&node1);
+	TEST_ASSERT_EQUAL_PTR(node5.right,&node10);
+	TEST_ASSERT_EQUAL_PTR(root,&node5);
+}
+
+/**
+*		root			root
+*		 /				  /
+*		20			 	 /
+*		/ \				10
+*	  10  30 --->	   /  \
+*	/	\			   1  20
+*  1	15				 /  \
+*						15	30					    	
+**/
+                             
+void test_right_rotate_5_nodes(void){
+	setNode(&node1,NULL,NULL,'b');
+	setNode(&node15,NULL,NULL,'b');
+	setNode(&node30,NULL,NULL,'b');
+	setNode(&node10,&node1,&node15,'b');
+	setNode(&node20,&node10,&node30,'b');
+	Node *root = &node20;
+	
+	rightRotate(&root);
+	TEST_ASSERT_EQUAL_PTR(node1.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node1.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node15.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node15.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node30.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node30.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node10.left,&node1);
+	TEST_ASSERT_EQUAL_PTR(node10.right,&node20);
+	TEST_ASSERT_EQUAL_PTR(node20.left,&node15);
+	TEST_ASSERT_EQUAL_PTR(node20.right,&node30);
+	TEST_ASSERT_EQUAL_PTR(root,&node10);
+}
+
+/*******************************************************************************************************************************************/
 void changeRootByVal(Node *node,Node *newNode){
 	node = newNode;
 	printf("changeRootByVal:node =%x\n",node);
@@ -82,14 +148,3 @@ void test_changeRootByRef(){
 	printf("new root is node %d with address %x\n",root->data,root);
 }
 
-#define safeMalloc(size) _safeMalloc_(size,__LINE__,__FILE__)
-
-void _safeMalloc_(unsigned int size,int lineNumber, char *filename){
-	printf("requested to allocate %d this much of memory\n And called"
-			"from %s at %d line number\n",size,filename,lineNumber);
-}
-
-void test_lineNumber(){
-
-  safeMalloc(100);
-}
