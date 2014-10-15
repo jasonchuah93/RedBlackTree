@@ -3,7 +3,7 @@
 #include "Node.h"
 #include "Rotation.h"
 
-Node node1,node5,node10,node13,node15,node20,node30;
+Node node1,node3,node5,node7,node10,node13,node15,node20,node30;
 
 void setNode(Node *target, Node *left, Node *right, char color){
 	target->left = left;
@@ -20,7 +20,9 @@ void resetNode(Node *target, int data){
 
 void setUp(void){
 	resetNode(&node1,1);
+	resetNode(&node3,3);
 	resetNode(&node5,5);
+	resetNode(&node7,7);
 	resetNode(&node10,10);
 	resetNode(&node13,13);
 	resetNode(&node15,15);
@@ -208,6 +210,26 @@ void test_left_rotate_5_nodes(void){
 	TEST_ASSERT_EQUAL_PTR(root,&node15);
 }
 
+/**
+*		root		root	 root
+*		10			10		   7
+*	    /    -->	/	-->	  /	\
+*	  5				7		5	10
+*	   \			/
+*      7 			5
+**/
+
+void test_leftRight_rotate_3_nodes(void){
+	setNode(&node7,NULL,NULL,'b');
+	setNode(&node5,NULL,&node7,'b');
+	setNode(&node10,&node5,NULL,'b');
+	Node *root = &node10;
+	
+	leftRightRotate(&root);
+	//TEST_ASSERT_EQUAL_PTR(node7.left,&node5);
+	//TEST_ASSERT_EQUAL_PTR(node7.right,&node10);
+	//TEST_ASSERT_EQUAL_PTR(root,&node7);
+}
 
 /*******************************************************************************************************************************************/
 void changeRootByVal(Node *node,Node *newNode){
