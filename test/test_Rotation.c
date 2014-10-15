@@ -117,6 +117,32 @@ void test_right_rotate_5_nodes(void){
 	TEST_ASSERT_EQUAL_PTR(root,&node10);
 }
 
+/**
+*		root			root
+*		 /				  /
+*		10			 	 /
+*		  \			 	5
+*			5 	--->   / \
+*			 \		  10  1
+*             1
+**/
+                             
+void test_left_rotate_3_nodes(void){
+	setNode(&node1,NULL,NULL,'b');
+	setNode(&node5,NULL,&node1,'b');
+	setNode(&node10,NULL,&node5,'b');
+	Node *root = &node10;
+	
+	leftRotate(&root);
+	TEST_ASSERT_EQUAL_PTR(node1.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node1.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node10.left,NULL);
+	TEST_ASSERT_EQUAL_PTR(node10.right,NULL);
+	TEST_ASSERT_EQUAL_PTR(node5.left,&node10);
+	TEST_ASSERT_EQUAL_PTR(node5.right,&node1);
+	TEST_ASSERT_EQUAL_PTR(root,&node5);
+}
+
 /*******************************************************************************************************************************************/
 void changeRootByVal(Node *node,Node *newNode){
 	node = newNode;
