@@ -19,14 +19,14 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 	if(root == NULL){
 		*rootPtr = newNode;
 		return;
-	}
-	if(newNode->data < root->data){
+	}else if(newNode->data < root->data){
 		_addRedBlackTree(&root->left,newNode);
 	}else if(newNode->data > root->data){
 		_addRedBlackTree(&root->right,newNode);
 	}else{
 		Throw(ERR_EQUIVALENT_NODE);
 	}
+	
 	if(root->left !=NULL && root->left->left !=NULL){
 		if(root->left->color == 'r' && root->left->left->color == 'r'){
 			rightRotate(rootPtr);
@@ -36,6 +36,12 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 		if(root->right->color == 'r' && root->right->right->color == 'r'){
 			leftRotate(rootPtr);
 			(*rootPtr)->left->color='r';
+		}
+	}
+	else if(root->left !=NULL && root->left->right !=NULL){
+		if(root->left->color == 'r' && root->left->right->color == 'r'){
+			leftRightRotate(rootPtr);
+			(*rootPtr)->right->color='r';
 		}
 	}
 }	
