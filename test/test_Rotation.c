@@ -1,22 +1,10 @@
 #include <stdio.h>
 #include "unity.h"
 #include "Node.h"
+#include "InitNode.h"
 #include "Rotation.h"
 
 Node node1,node3,node5,node6,node7,node8,node10,node13,node15,node20,node25,node30;
-
-void setNode(Node *target, Node *left, Node *right, char color){
-	target->left = left;
-	target->right = right;
-	target->color = color;
-}
-
-void resetNode(Node *target, int data){
-	target->left = NULL;
-	target->right = NULL;
-	target->color = 'b';
-	target->data = data;
-}
 
 void setUp(void){
 	resetNode(&node1,1);
