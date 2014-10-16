@@ -8,13 +8,14 @@
 #include "ErrorCode.h"
 #include "CException.h"
 
-Node node1,node5,node8,node10,node15,node20,node35;
+Node node1,node5,node8,node10,node13,node15,node20,node35;
 
 void setUp(void){
 	resetNode(&node1,1);
 	resetNode(&node5,5);
 	resetNode(&node8,8);
 	resetNode(&node10,10);
+	resetNode(&node13,13);
 	resetNode(&node15,15);
 	resetNode(&node20,20);
 	resetNode(&node35,35);
@@ -205,7 +206,7 @@ void test_addRedBlackTree_add_1_to_tree_with_root_10_and_rightRotate(void){
 /**
 *		root			   root 				        root
 *		 |		add 30(r)     |   				  		 |
-*		 v      ------> 	 v     Right rotate 	     v
+*		 v      ------> 	 v     Left rotate 	     v
 *		10(b)               10(b)     at 10				15(b)
 *	      \					  \		---------->			/  \
 *	     15(r)			      15(r)			     	10(r)	35(r)
@@ -216,7 +217,7 @@ void test_addRedBlackTree_add_1_to_tree_with_root_10_and_rightRotate(void){
 void test_addRedBlackTree_add_1_to_tree_with_root_10_and_leftRotate(void){
 	setNode(&node35,NULL,NULL,'r');
 	setNode(&node15,NULL,NULL,'r');
-	setNode(&node10,&node15,NULL,'b');
+	setNode(&node10,NULL,&node15,'b');
 	Node *root = &node10;
 	addRedBlackTree(&root,&node35);
 	TEST_ASSERT_EQUAL_PTR(&node15,root);
@@ -241,9 +242,29 @@ void test_addRedBlackTree_add_8_to_tree_to_root_10_and_leftRightRotate(void){
 	setNode(&node5,NULL,NULL,'r');
 	setNode(&node10,&node5,NULL,'b');
 	Node *root = &node10;
+	
 	addRedBlackTree(&root,&node8);
 	TEST_ASSERT_EQUAL_PTR(&node8,root);
 	TEST_ASSERT_EQUAL_NODE(&node5,&node10,'b',&node8);
 	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'r',&node5);
 	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'r',&node10);
+}
+
+/**
+*		root 					root		  root	      			root
+*		15(b)					15(b)			15(b)		   	    13(b)
+*	      \		add 13 			  \     ----->	  \	    ----->	    /  \
+*	      20(r) ------->		 20(r)	       	  13(r)     	15(r)  20(r)
+*	     						/		            \
+*      						 13(r) 		 	       20(r)
+**/
+
+void test_addRedBlackTree_add_13_to_tree_to_root_15_and_rightLeftRotate(void){
+	setNode(&node20,NULL,NULL,'r');
+	setNode(&node13,NULL,NULL,'r');
+	setNode(&node15,NULL,&node20,'b');
+	Node *root = &node15;
+	
+	addRedBlackTree(&root,&node13);
+	TEST_ASSERT_EQUAL_PTR(&node13,root);
 }
