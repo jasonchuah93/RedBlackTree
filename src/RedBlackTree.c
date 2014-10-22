@@ -26,23 +26,27 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 		Throw(ERR_EQUIVALENT_NODE);
 	}
 	
-	if(root->left !=NULL && root->left->left !=NULL){
-		if(root->left->color == 'r' && root->left->left->color == 'r'){
-			rightRotate(rootPtr);
+	if(root->left !=NULL){
+		if(root->left->left !=NULL){
+			if(root->left->color == 'r' && root->left->left->color == 'r'){
+				rightRotate(rootPtr);
+			}
+		}else if(root->left->right !=NULL){
+			if(root->left->color == 'r' && root->left->right->color == 'r'){
+				leftRightRotate(rootPtr);
+			}
 		}
-	}else if(root->right !=NULL && root->right->right !=NULL){
-		if(root->right->color == 'r' && root->right->right->color == 'r'){
-			leftRotate(rootPtr);
-		}
-	}else if(root->right !=NULL && root->right->left !=NULL){
-		if(root->right->color == 'r' && root->right->left->color == 'r'){
-			rightLeftRotate(rootPtr);
-		}
-	}else if(root->left !=NULL && root->left->right !=NULL){
-		if(root->left->color == 'r' && root->left->right->color == 'r'){
-			leftRightRotate(rootPtr);
+	}else if(root->right !=NULL){
+		if(root->right->right !=NULL){
+			if(root->right->color == 'r' && root->right->right->color == 'r'){
+				leftRotate(rootPtr);
+			}
+		}else if(root->right->left !=NULL){
+			if(root->right->color == 'r' && root->right->left->color == 'r'){
+				rightLeftRotate(rootPtr);
+			}
 		}
 	}
-}	
+}
 
 
