@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include "Rotation.h"
 #include "Node.h"
+#include "InitNode.h"
 
 void rightRotate(Node **nodePtr){
 	Node *currentRoot = (*nodePtr)->left; 
 	Node *newRoot = currentRoot->right;
 	currentRoot->right=(*nodePtr);
 	(*nodePtr)->left = newRoot;
-	*nodePtr = currentRoot;
+    *nodePtr = currentRoot;
+	currentRoot->right->color='r';
 }
 
 void leftRotate(Node **nodePtr){
@@ -16,11 +18,11 @@ void leftRotate(Node **nodePtr){
 	currentRoot->left=(*nodePtr);
 	(*nodePtr)->right = newRoot;
 	*nodePtr = currentRoot;
+	currentRoot->left->color='r';
 }
 
 void leftRightRotate(Node **nodePtr){
 	Node *currentRoot = *nodePtr;
-	printf("currentRoot is %d \n",currentRoot->data);
 	leftRotate(&currentRoot->left);
 	rightRotate(&(*nodePtr));
 }
