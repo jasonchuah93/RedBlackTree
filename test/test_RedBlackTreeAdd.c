@@ -251,7 +251,7 @@ void test_addRedBlackTree_add_13_to_tree_with_root_8_and_rightLeftRotate(void){
 *******************************************/
 
 /**
-*		root			     root
+*		root			       root
 *		 |		add 10		  |
 *		 v      ------>	  v
 *		10(b)            10(b)
