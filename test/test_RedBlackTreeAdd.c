@@ -259,7 +259,7 @@ void test_addRedBlackTree_add_13_to_tree_with_root_8_and_rightLeftRotate(void){
 *	5(r) 15(r)	5(b)	15(b)
 *             /
 *            1(r)
-**/   
+**/
 void test_addRedBlackTree_add_1_to_tree_with_root_5_10_15_nodes(void){
   setNode(&node1,NULL,NULL,'r');
 	setNode(&node5,NULL,NULL,'r');
@@ -284,7 +284,7 @@ void test_addRedBlackTree_add_1_to_tree_with_root_5_10_15_nodes(void){
 *	5(r) 15(r)	5(b)	15(b)
 *               \
 *               7(r)
-**/   
+**/
 void test_addRedBlackTree_add_7_to_tree_with_root_5_10_15_nodes(void){
   setNode(&node7,NULL,NULL,'r');
 	setNode(&node5,NULL,NULL,'r');
@@ -309,7 +309,7 @@ void test_addRedBlackTree_add_7_to_tree_with_root_5_10_15_nodes(void){
 *	5(r) 15(r)	5(b)	15(b)
 *                   /
 *                  12(r)
-**/   
+**/
 void test_addRedBlackTree_add_12_to_tree_with_root_5_10_15_nodes(void){
   setNode(&node12,NULL,NULL,'r');
 	setNode(&node5,NULL,NULL,'r');
@@ -334,7 +334,7 @@ void test_addRedBlackTree_add_12_to_tree_with_root_5_10_15_nodes(void){
 *	5(r) 15(r)	5(b)	15(b)
 *                     \
 *                      18(r)
-**/   
+**/
 void test_addRedBlackTree_add_18_to_tree_with_root_5_10_15_nodes(void){
   setNode(&node18,NULL,NULL,'r');
 	setNode(&node5,NULL,NULL,'r');
@@ -352,16 +352,16 @@ void test_addRedBlackTree_add_18_to_tree_with_root_5_10_15_nodes(void){
 
 /**
 *	   	root			              root                    root
-*		    |		 	                  |                       |                      
+*		    |		 	                  |                       |
 *		    v                       v                       v
-*		  20(b)                   20(b)                     20(b)  
+*		  20(b)                   20(b)                     20(b)
 *		/     \			add 7	        /	  \        flip         /  \
 *	 10(b) 22(b)	------->     10(b)	22(b) color       10(r) 22(b)
 *  /  \                      / \          ------->    /  \
 * 5(r) 15(r)              5(r)  15(r)               5(b)  15(b)
 *                           \                         \
 *                           7(r)                      7(r)
-**/   
+**/
 void test_addRedBlackTree_add_7_to_tree_with_root_5_10_15_20_22_nodes(void){
   setNode(&node7,NULL,NULL,'r');
   setNode(&node5,NULL,NULL,'r');
@@ -383,18 +383,18 @@ void test_addRedBlackTree_add_7_to_tree_with_root_5_10_15_20_22_nodes(void){
 
 /**
 *	   	   root			                       root                         root
-*		      |		 	                          |                           |                      
+*		      |		 	                          |                           |
 *		      v                               v                           v
-*		     20(b)                          20(b)                       20(b)  
+*		     20(b)                          20(b)                       20(b)
 *		    /    \			   add 7	        /	      \        flip         /   \
 *	   4(r)      40(r)	 ------->    4(r)	      40(r)     color     4(b)	 40(b)
 *   /   \       / \                /  \       /  \     ------->  /  \       /   \
-* 1(b) 10(b) 30(b) 60(b)        1(b)  10(b) 30(b) 60(b)       1(b)  10(r) 30(b) 60(b)         
+* 1(b) 10(b) 30(b) 60(b)        1(b)  10(b) 30(b) 60(b)       1(b)  10(r) 30(b) 60(b)
 *      / \                            / \                           /   \
 *   5(r) 15(r)                    5(r)   15(r)                    5(b)   15(b)
 *                                   \                                \
 *                                   7(r)                              7(r)
-**/   
+**/
 void test_addRedBlackTree_add_7_to_tree_with_root_1_4_5_10_15_20_30_40_60nodes(void){
   setNode(&node1,NULL,NULL,'b');
   setNode(&node5,NULL,NULL,'r');
@@ -419,7 +419,7 @@ void test_addRedBlackTree_add_7_to_tree_with_root_1_4_5_10_15_20_30_40_60nodes(v
   TEST_ASSERT_EQUAL_NODE(&node5,&node15,'r',&node10);
   TEST_ASSERT_EQUAL_NODE(&node1,&node10,'b',&node4);
   TEST_ASSERT_EQUAL_NODE(&node30,&node60,'b',&node40);
-  
+
 }
 
 /*****************************************
