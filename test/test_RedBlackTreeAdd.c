@@ -276,4 +276,3 @@ void test_addRedBlackTree_add_10_to_tree_with_root_10_should_throw_equivalent_er
 		TEST_ASSERT_EQUAL(ERR_EQUIVALENT_NODE ,e);
 	}
 }
-
