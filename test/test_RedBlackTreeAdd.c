@@ -39,10 +39,10 @@ void tearDown(void){}
 *******************************************/
 
 /**
-*		root			     root
-*		 |		add 10		 |
-*		 v    ------>	   v
-*		NULL             10(b)
+*		root			    root
+*		 |		add 10	|
+*		 v    ------> v
+*		NULL         10(b)
 **/
 
 void test_addRedBlackTree_add_10(void){
