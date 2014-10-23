@@ -241,8 +241,61 @@ void test_addRedBlackTree_add_13_to_tree_with_root_8_and_rightLeftRotate(void){
 	4 NODE tests
 
 *******************************************/
+/**
+*		root			   root
+*		 |		add 1 	|
+*		 v    ----->  v
+*		10(b)        10(r)
+*		/  \				/	  \
+*	5(r) 15(r)	5(b)	15(b)
+*             /
+*            1(r)
+**/   
+void test_addRedBlackTree_add_1_to_tree_with_root_5_10_15_nodes(void){
 
+}
 
+/**
+*		root			   root
+*		 |		add 7 	|
+*		 v    ----->  v
+*		10(b)        10(r)
+*		/  \				/	  \
+*	5(r) 15(r)	5(b)	15(b)
+*               \
+*               7(r)
+**/   
+void test_addRedBlackTree_add_7_to_tree_with_root_5_10_15_nodes(void){
+
+}
+
+/**
+*		root			   root
+*		 |		add 12 	|
+*		 v    ----->  v
+*		10(b)        10(r)
+*		/  \				/	  \
+*	5(r) 15(r)	5(b)	15(b)
+*                   /
+*                  12(r)
+**/   
+void test_addRedBlackTree_add_12_to_tree_with_root_5_10_15_nodes(void){
+
+}
+
+/**
+*		root			   root
+*		 |		add 7 	|
+*		 v    ----->  v
+*		10(b)        10(r)
+*		/  \				/	  \
+*	5(r) 15(r)	5(b)	15(b)
+*                     \
+*                      18(r)
+**/   
+void test_addRedBlackTree_add_18_to_tree_with_root_5_10_15_nodes(void){
+
+}
 
 /*****************************************
 
