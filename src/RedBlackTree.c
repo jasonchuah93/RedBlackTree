@@ -7,6 +7,7 @@
 #include "CException.h"
 
 void _addRedBlackTree(Node **rootPtr,Node *newNode);
+Node *_delRedBlackTree(Node **rootPtr,Node *newNode);
 
 void addRedBlackTree(Node **rootPtr,Node *newNode){
 	_addRedBlackTree(rootPtr,newNode);
@@ -62,4 +63,19 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
   }
 }
 
+Node *delRedBlackTree(Node **rootPtr,Node *newNode){
+  Node *node =_delRedBlackTree(rootPtr,newNode);
+  if(*rootPtr!=NULL)
+    (*rootPtr)->color='b';
+  return node;
+}
 
+Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
+  Node *node;
+  if((*rootPtr)->data != newNode->data){
+    Throw(ERR_NODE_UNAVAILABLE);
+  }
+  Node *root = *rootPtr;
+  *rootPtr = NULL;
+  return node;
+}
