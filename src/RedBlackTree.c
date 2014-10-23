@@ -15,19 +15,7 @@ void addRedBlackTree(Node **rootPtr,Node *newNode){
 
 void handleColor(Node **rootPtr,Node *newNode){
   Node *root = *rootPtr;
-      if(root->left->left !=NULL){
-        root->left->color ='b';
-        root->right->color ='b';
-        root->color ='r';
-      }else if(root->left->right !=NULL){
-        root->left->color ='b';
-        root->right->color ='b';
-        root->color ='r';
-      }else if(root->right->left !=NULL){
-        root->left->color ='b';
-        root->right->color ='b';
-        root->color ='r';
-      }else if(root->right->right !=NULL){
+  if(root->left->color == 'r' && root->right->color == 'r'){
         root->left->color ='b';
         root->right->color ='b';
         root->color ='r';
@@ -38,8 +26,12 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 	Node *root = *rootPtr;
 	if(root == NULL){
 		*rootPtr = newNode;
-		return;
-	}else if(root->data > newNode->data){
+    return;
+  }
+  if (root->left!=NULL && root->right!=NULL){
+       handleColor(rootPtr,newNode); 
+  }
+  if(root->data > newNode->data){
 		_addRedBlackTree(&root->left,newNode);
 	}else if(root->data < newNode->data){
 		_addRedBlackTree(&root->right,newNode);
@@ -47,7 +39,7 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 		Throw(ERR_EQUIVALENT_NODE);
 	}
 	
-	if(root->left!=NULL && root->right==NULL){
+  if(root->left!=NULL && root->right==NULL){
 		if(root->left->left !=NULL){
 			if(root->left->color == 'r' && root->left->left->color == 'r'){
 				rightRotate(rootPtr);
@@ -57,7 +49,7 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 				leftRightRotate(rootPtr);
 			}
 		}
-	}else if(root->left==NULL && root->right!=NULL){
+  }else if(root->left==NULL && root->right!=NULL){
 		if(root->right->right !=NULL){
 			if(root->right->color == 'r' && root->right->right->color == 'r'){
 				leftRotate(rootPtr);
@@ -67,9 +59,7 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
 				rightLeftRotate(rootPtr);
 			}
 		}
-  }else if (root->left!=NULL && root->right!=NULL){
-        handleColor(rootPtr,newNode);
-   }
+  }
 }
 
 
