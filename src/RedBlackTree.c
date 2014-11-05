@@ -30,15 +30,15 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
     return;
   }
   if (root->left!=NULL && root->right!=NULL){
-       handleColor(rootPtr,newNode); 
+    handleColor(rootPtr,newNode); 
   }
   if(root->data > newNode->data){
-		_addRedBlackTree(&root->left,newNode);
-	}else if(root->data < newNode->data){
-		_addRedBlackTree(&root->right,newNode);
-	}else{
-		Throw(ERR_EQUIVALENT_NODE);
-	}
+	_addRedBlackTree(&root->left,newNode);
+  }else if(root->data < newNode->data){
+	_addRedBlackTree(&root->right,newNode);
+  }else{
+	Throw(ERR_EQUIVALENT_NODE);
+  }
 	
   if(root->left!=NULL && root->right==NULL){
 		if(root->left->left !=NULL){
@@ -72,10 +72,57 @@ Node *delRedBlackTree(Node **rootPtr,Node *newNode){
 
 Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   Node *node;
-  if((*rootPtr)->data != newNode->data){
-    Throw(ERR_NODE_UNAVAILABLE);
-  }
   Node *root = *rootPtr;
-  *rootPtr = NULL;
+  if(root==newNode){
+    *rootPtr=NULL;
+    return;
+  }
+  if(root!=newNode){
+    if(root->left == NULL && root->right == NULL){
+        Throw(ERR_NODE_UNAVAILABLE);
+    }else if(root->data > newNode->data){
+        node=_delRedBlackTree(&root->left,newNode);
+    }else if(root->data < newNode->data){
+        node=_delRedBlackTree(&root->right,newNode);
+    }
+  }
+ 
+  if(root->left!=NULL && root->right==NULL){
+		if(root->left->left !=NULL){
+			if(root->left->color == 'r' && root->left->left->color == 'r'){
+				rightRotate(rootPtr);
+			}
+		}else if(root->left->right !=NULL){
+			if(root->left->color == 'r' && root->left->right->color == 'r'){
+				leftRightRotate(rootPtr);
+			}
+		}
+  }else if(root->left==NULL && root->right!=NULL){
+        if(root->right->right !=NULL){
+			if(root->right->color == 'r' && root->right->right->color == 'b'){
+				leftRotate(rootPtr);
+			}
+		}else if(root->right->left !=NULL){
+			if(root->right->color == 'r' && root->right->left->color == 'r'){
+				rightLeftRotate(rootPtr);
+			}
+		}
+  }else if(root->right!=NULL){
+    if(root->right->left !=NULL && root->right->right !=NULL){
+        root->right->color='r';
+    }else{
+        root->right->color='b';
+    }
+    if(root->right->color=='b'){
+        if(root->right->right!=NULL){
+            root->right->right->color='r';
+        }
+        if(root->right->left!=NULL){
+            root->right->left->color='r';
+        }
+    }
+  }
   return node;
 }
+
+
