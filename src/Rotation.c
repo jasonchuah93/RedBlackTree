@@ -9,7 +9,11 @@ void rightRotate(Node **nodePtr){
 	currentRoot->right=(*nodePtr);
 	(*nodePtr)->left = newRoot;
     *nodePtr = currentRoot;
-	currentRoot->right->color='r';
+	if(currentRoot->right->left!=NULL || currentRoot->right->right!=NULL){
+		currentRoot->right->color='b';
+	}else{
+		currentRoot->right->color='r';
+	}
 }
 
 void leftRotate(Node **nodePtr){

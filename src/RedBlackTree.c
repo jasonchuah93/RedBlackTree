@@ -101,6 +101,14 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
 			root->right->right->color='r';
 		}
 		node=_delRedBlackTree(&root->right,newNode);
+		if(root->left!=NULL && root->right==NULL){
+			if(root->left->left!=NULL){
+				if(root->left->left->color=='b' && root->left->right->color=='b'){
+					rightRotate(rootPtr);
+					(*rootPtr)->right->left->color='r';
+				}
+			}
+		}
 	}
   }
   
