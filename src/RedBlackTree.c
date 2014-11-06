@@ -127,18 +127,26 @@ Node *_delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
   Node *node;
   Node *root = *rootPtr;
   if(root==newNode){
-    *rootPtr=NULL;
-    return;
+	*rootPtr=NULL;
+	return ;
   }else{
-	if(root->right->color=='b' && root->right->right->color=='r'){
-		node=_delRedBlackTreeVer2(&root->left,newNode);
-		if(root->right->right->color=='r'){
-			leftRotate(rootPtr);
-		}
-		(*rootPtr)->left->color='b';
-		(*rootPtr)->right->color='b';
+	if(root->left == NULL && root->right == NULL){
+		 Throw(ERR_NODE_UNAVAILABLE);
+	}else if(root->data > newNode->data){
+		node=_delRedBlackTree(&root->left,newNode);
+	}else if(root->data < newNode->data){
+		node=_delRedBlackTree(&root->right,newNode);
+	}	
+  }
+  if(isNodeRed(node)){
+	return node;
+  }
+  if(isDoubleNodeBlack(root->left)){
+	if(isNodeRed(root->right)){
+		//restructureRedRight(rootPtr);
 	}
   }
+  return node;
 }
 
 void restructureBlackRightWithOneRedChild(Node **nodePtr){
@@ -286,10 +294,12 @@ int isNodeRed(Node *node){
 int isDoubleNodeBlack(Node *node){
 	if(node==NULL){
 		return 1;
-	}else if(node!=NULL && node->color=='d'){
+	}
+	if(node!=NULL && node->color=='d'){
 		return 1;
 	}else
 		return 0;
 	
 }
+
 
