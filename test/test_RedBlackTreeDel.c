@@ -401,16 +401,44 @@ void test_delRedBlackTree_remove_5_from_tree_with_nodes_1_2_5(void){
 }
 
 /**
- *      root              root
+ *	Case(1a): Sibling is black and nephew is red
+ * Parent being black
+ *      
  *       |    remove 5     |
  *       V     left rotate V
  *      10(b) --------->   20(b)
  *     /   \              /   \
  *   5(b)  20(b)        10(b) 30(b)
- *          \                  
- *      	30(r)           
+ *           \          / \   / \     
+ *      	30(r)      -   -  - - 
  */
-void test_delRedBlackTreeVer2_remove_1(void){
+void test_delRedBlackTree_remove_5_case1a(void){
+	setNode(&node30,NULL,NULL,'r');
+	setNode(&node5,NULL,NULL,'b');
+    setNode(&node20,NULL,&node30,'b');
+	setNode(&node10,&node5,&node20,'b');
+	
+	Node *root=&node10;
+	delRedBlackTree(&root,&node5);
+	//TEST_ASSERT_EQUAL_PTR(root,&node20);
+	//TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+	//TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node30);
+	//TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
+}
+
+/**
+ *	Case(1a): Sibling is black and nephew is red
+ * Parent being black
+ *      
+ *       |    remove 5     |
+ *       V     left rotate V
+ *      10(b) --------->   20(b)
+ *     /   \              /   \
+ *   5(b)  20(b)        10(b) 30(b)
+ *           \          / \   / \     
+ *      	30(r)      -   -  - - 
+ */
+void xtest_delRedBlackTreeVer2_remove_5_case1a(void){
 	setNode(&node5,NULL,NULL,'b');
     setNode(&node30,NULL,NULL,'r');
     setNode(&node20,NULL,&node30,'b');
@@ -418,5 +446,84 @@ void test_delRedBlackTreeVer2_remove_1(void){
 	
 	Node *root=&node10;
 	delRedBlackTreeVer2(&root,&node5);
+	TEST_ASSERT_EQUAL_PTR(root,&node20);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node30);
+	TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
+}
+
+/**
+ *	Case(1b): Sibling is black and nephew is red
+ * Parent being red
+ *      root              root
+ *       |    remove 5     |
+ *       V     left rotate V
+ *      10(r) --------->   20(b)
+ *     /   \              /   \
+ *   5(b)  20(b)        10(b) 30(b)
+ *           \                  
+ *      	30(r)           
+ */
+void xtest_delRedBlackTreeVer2_remove_5_case1_b(void){
+	setNode(&node5,NULL,NULL,'b');
+    setNode(&node30,NULL,NULL,'r');
+    setNode(&node20,NULL,&node30,'b');
+	setNode(&node10,&node5,&node20,'r');
 	
+	Node *root=&node10;
+	delRedBlackTreeVer2(&root,&node5);
+	TEST_ASSERT_EQUAL_PTR(root,&node20);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node30);
+	TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
+}
+
+/**
+ *	Case(1b): Sibling is black and nephew is red
+ *      root              			   root
+ *       |    remove 5     				|
+ *       V     rightLeft rotate 		V
+ *      10(b) ----------------->   	   15(b)
+ *     /   \              			   /   \
+ *   5(b)  20(b)        			10(b) 20(b)
+ *          /                   
+ *        15(r)           
+ */
+void xtest_delRedBlackTreeVer2_remove_5_case_1b(void){
+	setNode(&node5,NULL,NULL,'b');
+    setNode(&node15,NULL,NULL,'r');
+    setNode(&node20,&node15,NULL,'b');
+	setNode(&node10,&node5,&node20,'b');
+	
+	Node *root=&node10;
+	//delRedBlackTreeVer2(&root,&node5);
+	//TEST_ASSERT_EQUAL_PTR(root,&node15);
+	//TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+	//TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node30);
+	//TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
+}
+
+/**
+ *	Case(2): Sibling is black and both nephew are black
+ *      root              root
+ *       |    remove 5     |
+ *       V      		   V
+ *      10(b) --------->  10(b)
+ *     /   \             //   \
+ *   5(b)  20(b)         -  20(b)
+ *                             
+ *                   
+ */
+void xtest_delRedBlackTreeVer2_remove_5_case_2(void){
+	setNode(&node5,NULL,NULL,'b');
+    setNode(&node15,NULL,NULL,'r');
+    setNode(&node20,&node15,NULL,'b');
+	setNode(&node10,&node5,&node20,'b');
+	
+	Node *root=&node10;
+	//delRedBlackTreeVer2(&root,&node5);
+	//TEST_ASSERT_EQUAL_PTR(root,&node15);
+	//TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+	//TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node30);
+	//TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
 }

@@ -124,5 +124,32 @@ Node *delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
 }
 
 Node *_delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
-	
+  Node *node;
+  Node *root = *rootPtr;
+  if(root==newNode){
+    *rootPtr=NULL;
+    return;
+  }else{
+	if(root->right->color=='b' && root->right->right->color=='r'){
+		node=_delRedBlackTreeVer2(&root->left,newNode);
+		if(root->right->right->color=='r'){
+			leftRotate(rootPtr);
+		}
+		(*rootPtr)->left->color='b';
+		(*rootPtr)->right->color='b';
+	}
+  }
 }
+
+int isNodeBlack(Node *node){
+	if(node==NULL || node->color=='b')
+		return 1;
+	return 0;
+}
+
+int isNodeRed(Node *node){
+	if(node==NULL || node->color=='r')
+		return 1;
+	return 0;
+}
+
