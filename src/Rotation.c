@@ -18,14 +18,11 @@ void leftRotate(Node **nodePtr){
 	currentRoot->left=(*nodePtr);
 	(*nodePtr)->right = newRoot;
 	*nodePtr = currentRoot;
-	if(currentRoot->right->color=='b'){
-        currentRoot->left->color='b';
-    }else{
-        currentRoot->left->color='r';
-    }
-    if(currentRoot->left->right->color=='b'){
-        currentRoot->left->right->color='r';
-    }
+	if(currentRoot->left->left!=NULL || currentRoot->left->right!=NULL){
+		currentRoot->left->color='b';
+	}else{
+		currentRoot->left->color='r';
+	}
 }
 
 void leftRightRotate(Node **nodePtr){

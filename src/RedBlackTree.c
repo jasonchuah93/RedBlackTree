@@ -76,52 +76,29 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   if(root==newNode){
     *rootPtr=NULL;
     return;
-  }
-  if(root!=newNode){
-    if(root->left == NULL && root->right == NULL){
+  }else{
+	if(root->left == NULL && root->right == NULL){
         Throw(ERR_NODE_UNAVAILABLE);
     }else if(root->data > newNode->data){
-        node=_delRedBlackTree(&root->left,newNode);
-    }else if(root->data < newNode->data){
-        node=_delRedBlackTree(&root->right,newNode);
-    }
-  }
- 
-  if(root->left!=NULL && root->right==NULL){
-		if(root->left->left !=NULL){
-			if(root->left->color == 'r' && root->left->left->color == 'r'){
-				rightRotate(rootPtr);
-			}
-		}else if(root->left->right !=NULL){
-			if(root->left->color == 'r' && root->left->right->color == 'r'){
-				leftRightRotate(rootPtr);
+		node=_delRedBlackTree(&root->left,newNode);
+		if(root->left==NULL && root->right!=NULL){
+			if(root->right->right!=NULL){
+				if(root->right->left->color=='b' && root->right->right->color=='b'){
+					leftRotate(rootPtr);
+					(*rootPtr)->left->right->color='r';
+				}
 			}
 		}
-  }else if(root->left==NULL && root->right!=NULL){
-        if(root->right->right !=NULL){
-			if(root->right->color == 'r' && root->right->right->color == 'b'){
-				leftRotate(rootPtr);
-			}
-		}else if(root->right->left !=NULL){
-			if(root->right->color == 'r' && root->right->left->color == 'r'){
-				rightLeftRotate(rootPtr);
-			}
+	}else if(root->data < newNode->data){
+		if(root->right->left!=NULL || root->right->right!=NULL){
+			root->right->color='b';
+			root->right->left->color='r';
+			root->right->right->color='r';
 		}
-  }else if(root->right!=NULL){
-    if(root->right->left !=NULL && root->right->right !=NULL){
-        root->right->color='r';
-    }else{
-        root->right->color='b';
-    }
-    if(root->right->color=='b'){
-        if(root->right->right!=NULL){
-            root->right->right->color='r';
-        }
-        if(root->right->left!=NULL){
-            root->right->left->color='r';
-        }
-    }
+		node=_delRedBlackTree(&root->right,newNode);
+	}
   }
+  
   return node;
 }
 

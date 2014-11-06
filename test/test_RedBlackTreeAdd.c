@@ -222,9 +222,9 @@ void test_addRedBlackTree_add_8_to_tree_with_root_10_and_leftRightRotate(void){
 }
 
 /**
-*	root 		root		              root
-*	8(b)	         8(b)			      13(b)
-*	  \	add 13 	  \     rightLeft Rotate      /  \
+*	root 			root		                   root
+*	8(b)	         8(b)			      		  13(b)
+*	  \		add 13 	  \     rightLeft Rotate      /  \
 *	  20(r) ------>	20(r)	-----------------> 8(r)  20(r)
 *	                 /
 *      		        13(r)
