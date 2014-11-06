@@ -547,6 +547,7 @@ void test_restructureBlackLeftWithOneRedChild_case_1b(void){
 	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
 	TEST_ASSERT_EQUAL_NODE(&node8,&node10,'b',&node9);
 }
+
 /**
  *	Case(2a): Sibling is black and both nephew are black
  *	Parent is black lastly become double
@@ -575,9 +576,35 @@ void test_restructureBlackRightWithBlackChildren_case_2a(void){
 }
 
 /**
+ *	Case(2a): Sibling is black and both nephew are black
+ *	Parent is black lastly become double
+ *      |        		     	    |
+ *       V     flip color  	        V
+ *      10(b) ----------------->   10(d)
+ *      /   \\                	  /   \
+ *     8(b)  -        			8(r)  -
+ *    /   \                    	/ \        
+ *   5(b) 9(b)              5(b)  9(b)	     
+ */
+void test_restructureBlackLeftWithBlackChildren_case_2a(void){
+	setNode(&node5,NULL,NULL,'b');
+	setNode(&node9,NULL,NULL,'b');
+    setNode(&node8,&node5,&node9,'b');
+	setNode(&node10,&node8,NULL,'b');
+	
+	Node *root=&node10;
+	restructureBlackLeftWithBlackChildren(&root);
+	TEST_ASSERT_EQUAL_PTR(root,&node10);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node5);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node9);
+	TEST_ASSERT_EQUAL_NODE(&node5,&node9,'r',&node8);
+	TEST_ASSERT_EQUAL_NODE(&node8,NULL,'d',&node10);
+}
+
+/**
  *	Case(2b): Sibling is black and both nephew are black
  *	Parent is red and lastly become black
- *      root              root
+ *     root              root
  *       |        			|
  *       V     flip color   V
  *      10(r) --------->  10(b)
@@ -602,8 +629,35 @@ void test_restructureBlackRightWithBlackChildren_case_2b(void){
 }
 
 /**
- *	Case(3): Sibling is red
+ *	Case(2b): Sibling is black and both nephew are black
  *	Parent is red and lastly become black
+ *      root             		   root
+ *       |        		     	    |
+ *       V     flip color  	        V
+ *      10(r) ----------------->   10(b)
+ *      /   \\                	  /   \
+ *     8(b)  -        			8(r)  -
+ *    /   \                    	/ \        
+ *   5(b) 9(b)              5(b)  9(b)	     
+ */
+void test_restructureBlackLeftWithBlackChildren_case_2b(void){
+	setNode(&node5,NULL,NULL,'b');
+	setNode(&node9,NULL,NULL,'b');
+    setNode(&node8,&node5,&node9,'b');
+	setNode(&node10,&node8,NULL,'r');
+	
+	Node *root=&node10;
+	restructureBlackLeftWithBlackChildren(&root);
+	TEST_ASSERT_EQUAL_PTR(root,&node10);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node5);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node9);
+	TEST_ASSERT_EQUAL_NODE(&node5,&node9,'r',&node8);
+	TEST_ASSERT_EQUAL_NODE(&node8,NULL,'b',&node10);
+}
+
+/**
+ *	Case(3): Sibling is red
+ *	
  *      root              root						root
  *       |    rotate    	|		use 			  |
  *       V     left			V		case 2			  V
@@ -628,4 +682,30 @@ void test_restructureRedRight_case_3(void){
 	TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
 }
 
+/**
+ *	Case(3): Sibling is red
+ *	
+ *       root             		   root					root
+ *       |     rotate   		    |					  |
+ *       V       	 right       	V		case 2		  V
+ *      10(b) ----------------->   8(b) ------------>    8(b)
+ *      /   \\                	  /   \					/ \
+ *     8(r)  -        			5(r)  10(b)			 5(b) 10(b)
+ *    /   \                    	   	 /      			 /
+ *   5(b) 9(b)                		9(b)	   			9(r)
+ */
+void test_restructureRedLeft_case_3(void){
+	setNode(&node5,NULL,NULL,'b');
+	setNode(&node9,NULL,NULL,'b');
+    setNode(&node8,&node5,&node9,'r');
+	setNode(&node10,&node8,NULL,'b');
+	
+	Node *root=&node10;
+	restructureRedLeft(&root);
+	TEST_ASSERT_EQUAL_PTR(root,&node8);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'r',&node9);
+	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node5);
+	TEST_ASSERT_EQUAL_NODE(&node9,NULL,'b',&node10);
+	TEST_ASSERT_EQUAL_NODE(&node5,&node10,'b',&node8);
+}
 

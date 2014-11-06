@@ -188,10 +188,27 @@ void restructureBlackRightWithBlackChildren(Node **nodePtr){
 	parent->right->color='r';
 }
 
+void restructureBlackLeftWithBlackChildren(Node **nodePtr){
+	Node *parent = *nodePtr;
+	char parentColor=parent->color=='b'?'d':'r';
+	if((parentColor = parent->color)=='b'){
+		parent->color = 'd';
+	}else{
+		parent->color = 'b';
+	}
+	parent->left->color='r';
+}
+
 void restructureBlackRightWithBlackChildrenForRedRight(Node **nodePtr){
 	Node *parent = *nodePtr;
 	char parentColor=parent->color=='b'?'d':'r';
 	parent->right->color='r';
+}
+
+void restructureBlackLeftWithBlackChildrenForRedLeft(Node **nodePtr){
+	Node *parent = *nodePtr;
+	char parentColor=parent->color=='b'?'d':'r';
+	parent->left->color='r';
 }
 
 void restructureRedRight(Node **nodePtr){
@@ -200,6 +217,14 @@ void restructureRedRight(Node **nodePtr){
 	leftRotate(nodePtr);
 	(*nodePtr)->color='b';
 	restructureBlackRight(&parent);
+}
+
+void restructureRedLeft(Node **nodePtr){
+	Node *parent = *nodePtr;
+	parent->color = 'r';
+	rightRotate(nodePtr);
+	(*nodePtr)->color='b';
+	restructureBlackLeft(&parent);
 }
 
 void restructureBlackRight(Node **nodePtr){
@@ -219,6 +244,26 @@ void restructureBlackRight(Node **nodePtr){
 			grandChild->color='b';
 	}else{
 		restructureBlackRightWithBlackChildrenForRedRight(nodePtr);
+	}
+}
+
+void restructureBlackLeft(Node **nodePtr){
+	Node *grandChild,*child,*parent = *nodePtr;
+	char parentColor = parent->color;
+	parent->color = 'b';
+	child = parent->left;
+	if(isNodeRed((grandChild = child->left))){
+		rightRotateVer2(nodePtr);
+		child->color = parentColor;
+		if(grandChild)
+			grandChild->color='b';
+	}else if(isNodeRed((grandChild = child->right))){
+		leftRightRotateVer2(nodePtr);
+		child->color='b';
+		if(grandChild)
+			grandChild->color='b';
+	}else{
+		restructureBlackLeftWithBlackChildrenForRedLeft(nodePtr);
 	}
 }
 
