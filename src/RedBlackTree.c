@@ -8,6 +8,7 @@
 
 void _addRedBlackTree(Node **rootPtr,Node *newNode);
 Node *_delRedBlackTree(Node **rootPtr,Node *newNode);
+Node *_delRedBlackTreeVer2(Node **rootPtr,Node *newNode);
 
 void addRedBlackTree(Node **rootPtr,Node *newNode){
 	_addRedBlackTree(rootPtr,newNode);
@@ -115,4 +116,13 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   return node;
 }
 
+Node *delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
+	Node *node =_delRedBlackTreeVer2(rootPtr,newNode);
+	if(*rootPtr!=NULL)
+		(*rootPtr)->color='b';
+	return node;
+}
 
+Node *_delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
+	
+}

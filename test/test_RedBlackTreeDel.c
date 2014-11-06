@@ -399,3 +399,24 @@ void test_delRedBlackTree_remove_5_from_tree_with_nodes_1_2_5(void){
     TEST_ASSERT_EQUAL_NODE(&node15,NULL,'b',&node20);
     TEST_ASSERT_EQUAL_NODE(&node5,&node20,'b',&node10);
 }
+
+/**
+ *      root              root
+ *       |    remove 5     |
+ *       V     left rotate V
+ *      10(b) --------->   20(b)
+ *     /   \              /   \
+ *   5(b)  20(b)        10(b) 30(b)
+ *          \                  
+ *      	30(r)           
+ */
+void test_delRedBlackTreeVer2_remove_1(void){
+	setNode(&node5,NULL,NULL,'b');
+    setNode(&node30,NULL,NULL,'r');
+    setNode(&node20,NULL,&node30,'b');
+	setNode(&node10,&node5,&node20,'b');
+	
+	Node *root=&node10;
+	delRedBlackTreeVer2(&root,&node5);
+	
+}
