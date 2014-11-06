@@ -80,6 +80,11 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
 	if(root->left == NULL && root->right == NULL){
         Throw(ERR_NODE_UNAVAILABLE);
     }else if(root->data > newNode->data){
+		if(root->left->left!=NULL || root->left->right!=NULL){
+			root->left->color='b';
+			root->left->left->color='r';
+			root->left->right->color='r';
+		}
 		node=_delRedBlackTree(&root->left,newNode);
 		if(root->left==NULL && root->right!=NULL){
 			if(root->right->right!=NULL){
