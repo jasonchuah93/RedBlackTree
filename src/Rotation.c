@@ -41,3 +41,36 @@ void rightLeftRotate(Node **nodePtr){
 	leftRotate(&(*nodePtr));
 }
 
+/***
+*
+* IMPROVED VERSION OF EACH OF THE FUNCTION
+* ABOVE
+*
+***/
+void rightRotateVer2(Node **nodePtr){
+	Node *currentRoot = (*nodePtr)->left; 
+	Node *newRoot = currentRoot->right;
+	currentRoot->right=(*nodePtr);
+	(*nodePtr)->left = newRoot;
+    *nodePtr = currentRoot;
+}
+
+void leftRotateVer2(Node **nodePtr){
+	Node *currentRoot = (*nodePtr)->right;
+	Node *newRoot = currentRoot->left;
+	currentRoot->left=(*nodePtr);
+	(*nodePtr)->right = newRoot;
+	*nodePtr = currentRoot;
+}
+
+void leftRightRotateVer2(Node **nodePtr){
+	Node *currentRoot = *nodePtr;
+	leftRotateVer2(&currentRoot->left);
+	rightRotateVer2(&(*nodePtr));
+}
+
+void rightLeftRotateVer2(Node **nodePtr){
+	Node *currentRoot = *nodePtr;
+	rightRotateVer2(&currentRoot->right);
+	leftRotateVer2(&(*nodePtr));
+}
