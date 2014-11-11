@@ -4,6 +4,7 @@
 #include "InitNode.h"
 #include "Rotation.h"
 #include "RedBlackTree.h"
+#include "RestructureNode.h"
 #include "CustomAssertions.h"
 #include "ErrorCode.h"
 #include "CException.h"
