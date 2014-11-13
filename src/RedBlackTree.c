@@ -88,50 +88,37 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   }else{
 	if(leftChild == NULL && rightChild == NULL){
 		 Throw(ERR_NODE_UNAVAILABLE);
-	}else if((*rootPtr)->data > newNode->data){
+    }else if((*rootPtr)->data > newNode->data){
         node= _delRedBlackTree(&leftChild,newNode);
     }else if((*rootPtr)->data < newNode->data){
 		node= _delRedBlackTree(&rightChild,newNode);
+        
 	}
   }
-  if(isDoubleNodeBlack(&leftChild,newNode)){
-	if(isNodeRed(&rightChild)){
-        if(rightLeftGrandChild !=NULL && rightGrandChild !=NULL){
-            restructureRedRight(rootPtr,newNode);
-        }
-    }else if(isNodeBlack(&rightChild) && isNodeRed(&rightLeftGrandChild)){
-       restructureBlackRightWithOneRedChild(rootPtr);
-    }else if(isNodeBlack(&rightChild)){
-		restructureBlackRightWithBlackChildren(rootPtr);
-	}
-  }else if(isDoubleNodeBlack(&rightChild,newNode)){
-    if(isNodeRed(&leftChild)){
-		if(leftRightGrandChild!=NULL && leftGrandChild!=NULL){
-            restructureRedLeft(rootPtr,newNode);
-        }
-    }else if(isNodeBlack(&leftChild) && isNodeRed(&leftRightGrandChild)){
-		restructureBlackLeftWithOneRedChild(rootPtr);
-	}else if(isNodeBlack(&leftChild)){
-		restructureBlackLeftWithBlackChildren(rootPtr);
-	}
-  }
+  restructureRedBlackTree(rootPtr,newNode);
+  
   return node;
 }
 
 Node *removeNextLargerSuccessor(Node **rootPtr){
-	Node *removeNode, *childOfParent = *rootPtr;
+	Node *removeNode, *childOfParent;
 	
 	if(leftChild !=NULL){
 		removeNode = removeNextLargerSuccessor(&leftChild);
+        
 	}else if(rightChild == NULL){
 		removeNode = *rootPtr;
 		*rootPtr = NULL;
+        return removeNode;
 	}else if(leftChild == NULL){
 		removeNode = *rootPtr;
 		*rootPtr = rightChild;
 		(*rootPtr)->color = 'b';
+        return removeNode;
 	}
-	return removeNode;		
+    
+	restructureRedBlackTree(rootPtr,removeNode);
+	return removeNode;
 }
 
 /******************************************************]

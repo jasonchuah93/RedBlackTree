@@ -52,11 +52,11 @@ int isNodeRed(Node **node){
 	*	double black		double black          x 
 **/
 
-int isDoubleNodeBlack(Node **node , Node *removeNode){
-	if(*node==NULL && removeNode->color =='b'){
+int isDoubleNodeBlack(Node *node , Node *removeNode){
+	if(node==NULL && removeNode->color =='b'){
 		return 1;
 	}
-	else if(*node!=NULL &&(*node)->color=='d'){
+	else if(node!=NULL && node->color=='d'){
 		return 1;
 	}else
 		return 0;
@@ -103,19 +103,22 @@ void restructureBlackLeftWithOneRedChild(Node **nodePtr){
 
 void restructureBlackRightWithBlackChildren(Node **nodePtr){
 	char parentColor=(*nodePtr)->color;
-	if((parentColor = (*nodePtr)->color)=='b'){
+	if(parentColor =='b'){
 		(*nodePtr)->color = 'd';
-	}else{
+	}else if(parentColor == 'r'){
 		(*nodePtr)->color = 'b';
 	}
+    if(rightChild!=NULL){
+        rightChild->color='r';
+    }
     rightChild->color='r';
 }
 
 void restructureBlackLeftWithBlackChildren(Node **nodePtr){
 	char parentColor=(*nodePtr)->color;
-	if((parentColor = (*nodePtr)->color)=='b'){
+	if(parentColor =='b'){
 		(*nodePtr)->color = 'd';
-	}else{
+	}else if(parentColor == 'r'){
 		(*nodePtr)->color = 'b';
 	}
 	leftChild->color='r';
@@ -132,7 +135,7 @@ void restructureRedRight(Node **nodePtr,Node *delNode){
 	if(isNodeRed(&leftRightGrandChild->right)){
 		restructureBlackRightWithOneRedChild(&leftChild);
 		leftChild->color='r';
-	}else if(isDoubleNodeBlack(&leftGrandChild,delNode) && isNodeBlack(&leftRightGrandChild)){
+	}else if(isDoubleNodeBlack(leftGrandChild,delNode) && isNodeBlack(&leftRightGrandChild)){
 		restructureBlackRightWithBlackChildren(&leftChild);
 		leftChild->color='b';
 	}
@@ -144,10 +147,35 @@ void restructureRedLeft(Node **nodePtr,Node *delNode){
 	if(isNodeRed(&rightLeftGrandChild->left)){
 		restructureBlackLeftWithOneRedChild(&rightChild);
 		rightChild->color='r';
-	}else if(isDoubleNodeBlack(&rightGrandChild,delNode) && isNodeBlack(&rightLeftGrandChild)){
+	}else if(isDoubleNodeBlack(rightGrandChild,delNode) && isNodeBlack(&rightLeftGrandChild)){
 		restructureBlackLeftWithBlackChildren(&rightChild);
 		rightChild->color='b';
 	}
 }
 
+void restructureRedBlackTree(Node **nodePtr,Node *removeNode){
+    if(isDoubleNodeBlack(leftChild,removeNode)){
+        if(isNodeRed(&rightChild)){
+            if(rightLeftGrandChild !=NULL && rightGrandChild !=NULL){
+                restructureRedRight(nodePtr,removeNode);
+            }
+        }else if(isNodeBlack(&rightChild) && isNodeRed(&rightLeftGrandChild)){
+            restructureBlackRightWithOneRedChild(nodePtr);
+        }else if(isNodeBlack(&rightChild)){
+            printf("here A1\n");
+            restructureBlackRightWithBlackChildren(nodePtr);
+        }
+    }else if(isDoubleNodeBlack(rightChild,removeNode)){
+        printf("here B\n");
+        if(isNodeRed(&leftChild)){
+            if(leftRightGrandChild!=NULL && leftGrandChild!=NULL){
+                restructureRedLeft(nodePtr,removeNode);
+            }
+        }else if(isNodeBlack(&leftChild) && isNodeRed(&leftRightGrandChild)){
+            restructureBlackLeftWithOneRedChild(nodePtr);
+        }else if(isNodeBlack(&leftChild)){
+            restructureBlackLeftWithBlackChildren(nodePtr);
+        }
+    }
+}   
 

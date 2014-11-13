@@ -3,7 +3,7 @@
 
 int isNodeBlack(Node **node);
 int isNodeRed(Node **node);
-int isDoubleNodeBlack(Node **node,Node *removeNode);
+int isDoubleNodeBlack(Node *node,Node *removeNode);
 
 void restructureBlackRightWithOneRedChild(Node **nodePtr);
 void restructureBlackLeftWithOneRedChild(Node **nodePtr);
@@ -19,5 +19,7 @@ void restructureBlackLeft(Node **nodePtr);
 
 void restructureBlackRightWithBlackChildrenForRedRight(Node **nodePtr);
 void restructureBlackLeftWithBlackChildrenForRedLeft(Node **nodePtr);
+
+void restructureRedBlackTree(Node **nodePtr,Node *removeNode);
 
 #endif // RestructureNode_H
