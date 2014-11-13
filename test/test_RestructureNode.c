@@ -295,62 +295,10 @@ void test_restructureBlackLeftWithBlackChildren_case_2b(void){
 	TEST_ASSERT_EQUAL_NODE(&node8,NULL,'b',&node10);
 }
 
-/**
- *	Case(3a): Sibling is red
- *	
- *      root              root						root
- *       |    rotate    	|		use 			  |
- *       V     left			V		case 2			  V
- *      10(b) --------->  20(b)		--------->	     20(b)
- *     //   \             /   \						 / \		
- *    -		20(r)       10(r)  30(b)			 10(b) 30(b)
- *          /  \        //  \     					\
- *        15(b) 30(b)   -   15(b)  			       15(r)
- */
-void test_restructureRedRight_case_3a(void){
-	setNode(&node15,NULL,NULL,'b');
-	setNode(&node30,NULL,NULL,'b');
-    setNode(&node20,&node15,&node30,'r');
-	setNode(&node10,NULL,&node20,'b');
-	
-	Node *root=&node10;
-	restructureRedRight(&root);
-	TEST_ASSERT_EQUAL_PTR(root,&node20);
-	TEST_ASSERT_EQUAL_NODE(&node10,&node30,'b',&node20);
-    TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node30);
-    TEST_ASSERT_EQUAL_NODE(NULL,NULL,'r',&node15);
-	TEST_ASSERT_EQUAL_NODE(NULL,&node15,'b',&node10);
-	
-}
+/***************************************************
+	Case 3 unit tests on test_RedBlackTreeDel.c
+****************************************************/
 
-/**
- *	Case(3a): Sibling is red
- *	
- *       root             		   root					root
- *       |     rotate   		    |					  |
- *       V       	 right       	V		case 2		  V
- *      10(b) ----------------->   8(b) ------------>    8(b)
- *      /   \\                	  /   \					/ \
- *     8(r)  -        			5(r)  10(b)			 5(b) 10(b)
- *    /   \                    	     /  \\      	      /
- *   5(b) 9(b)                   	9(b) -	   			9(r)
- *      
- *       
- */
-void test_restructureRedLeft_case_3b(void){
-	setNode(&node5,NULL,NULL,'b');
-	setNode(&node9,NULL,NULL,'b');
-    setNode(&node8,&node5,&node9,'r');
-	setNode(&node10,&node8,NULL,'b');
-	
-	Node *root=&node10;
-	restructureRedLeft(&root);
-	TEST_ASSERT_EQUAL_PTR(root,&node8);
-	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'r',&node9);
-	TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node5);
-	TEST_ASSERT_EQUAL_NODE(&node9,NULL,'b',&node10);
-	TEST_ASSERT_EQUAL_NODE(&node5,&node10,'b',&node8);
-}
 
 
 

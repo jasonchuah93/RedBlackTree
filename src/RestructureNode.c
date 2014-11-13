@@ -29,11 +29,11 @@ int isNodeRed(Node **node){
 	}
 }
 
-int isDoubleNodeBlack(Node **node){
-	if(*node==NULL){
+int isDoubleNodeBlack(Node **node , Node *removeNode){
+	if(*node==NULL && removeNode->color =='b'){
 		return 1;
 	}
-	if(*node!=NULL &&(*node)->color=='d'){
+	else if(*node!=NULL &&(*node)->color=='d'){
 		return 1;
 	}else
 		return 0;
@@ -103,18 +103,28 @@ void restructureBlackLeftWithBlackChildren(Node **nodePtr){
  CASE 3 SUB-FUNCTION
 *************************/
 
-void restructureRedRight(Node **nodePtr){
+void restructureRedRight(Node **nodePtr,Node *delNode){
 	leftRotate(nodePtr);
     (*nodePtr)->color = 'b';
-    restructureBlackRightWithBlackChildren(&leftChild);
-    leftChild->color='b';
+	if(isNodeRed(&leftRightGrandChild->right)){
+		restructureBlackRightWithOneRedChild(&leftChild);
+		leftChild->color='r';
+	}else if(isDoubleNodeBlack(&leftGrandChild,delNode) && isNodeBlack(&leftRightGrandChild)){
+		restructureBlackRightWithBlackChildren(&leftChild);
+		leftChild->color='b';
+	}
 }
 
-void restructureRedLeft(Node **nodePtr){
+void restructureRedLeft(Node **nodePtr,Node *delNode){
 	rightRotate(nodePtr);
-    (*nodePtr)->color = 'b';
-	restructureBlackLeftWithBlackChildren(&rightChild);
-	rightChild->color='b';
+	(*nodePtr)->color = 'b';
+	if(isNodeRed(&rightLeftGrandChild->left)){
+		restructureBlackLeftWithOneRedChild(&rightChild);
+		rightChild->color='r';
+	}else if(isDoubleNodeBlack(&rightGrandChild,delNode) && isNodeBlack(&rightLeftGrandChild)){
+		restructureBlackLeftWithBlackChildren(&rightChild);
+		rightChild->color='b';
+	}
 }
 
 

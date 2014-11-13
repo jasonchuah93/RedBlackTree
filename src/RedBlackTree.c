@@ -72,10 +72,6 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
   }
 }
 
-/***************************
-    OLD VERSION TESTED WITH 
-    UNIT TESTS
-****************************/    
 Node *delRedBlackTree(Node **rootPtr,Node *newNode){
   Node *node =_delRedBlackTree(rootPtr,newNode);
   if(*rootPtr!=NULL)
@@ -83,6 +79,55 @@ Node *delRedBlackTree(Node **rootPtr,Node *newNode){
   return node;
 }
 
+Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
+  Node *node;
+  Node *root=*rootPtr;
+  if(root==newNode){
+	*rootPtr=NULL;
+    return node;
+  }else{
+	if(leftChild == NULL && rightChild == NULL){
+		 Throw(ERR_NODE_UNAVAILABLE);
+	}else if((*rootPtr)->data > newNode->data){
+        node= _delRedBlackTree(&leftChild,newNode);
+    }else if((*rootPtr)->data < newNode->data){
+		node= _delRedBlackTree(&rightChild,newNode);
+	}
+  }
+  if(isDoubleNodeBlack(&leftChild,newNode)){
+	if(isNodeRed(&rightChild)){
+        if(rightLeftGrandChild !=NULL && rightGrandChild !=NULL){
+            restructureRedRight(rootPtr,newNode);
+        }
+    }else if(isNodeBlack(&rightChild) && isNodeRed(&rightLeftGrandChild)){
+       restructureBlackRightWithOneRedChild(rootPtr);
+    }else if(isNodeBlack(&rightChild)){
+		restructureBlackRightWithBlackChildren(rootPtr);
+	}
+  }else if(isDoubleNodeBlack(&rightChild,newNode)){
+    if(isNodeRed(&leftChild)){
+		if(leftRightGrandChild!=NULL && leftGrandChild!=NULL){
+            restructureRedLeft(rootPtr,newNode);
+        }
+    }else if(isNodeBlack(&leftChild) && isNodeRed(&leftRightGrandChild)){
+		restructureBlackLeftWithOneRedChild(rootPtr);
+	}else if(isNodeBlack(&leftChild)){
+		restructureBlackLeftWithBlackChildren(rootPtr);
+	}
+  }
+  return node;
+}
+
+Node *removeNextLargetSuccessor(Node **parentPtr){
+	Node *parent;
+	if((*parentPtr)->left){
+		removeNextLargetSuccessor(&(*parentPtr)->left);
+	}
+}
+/******************************************************]
+	********************
+		Old function 
+	********************
 Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   Node *node;
   Node *root = *rootPtr;
@@ -127,57 +172,4 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   
   return node;
 }
-
-/***************************
-    NEW VERSION TESTED WITH 
-    UNIT TESTS
-****************************/
-
-Node *delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
-	Node *node=_delRedBlackTreeVer2(rootPtr,newNode);
-	if(*rootPtr!=NULL)
-		(*rootPtr)->color='b';
-	return node;
-}
-
-Node *_delRedBlackTreeVer2(Node **rootPtr,Node *newNode){
-  Node *node;
-  Node *root=*rootPtr;
-  if(root==newNode){
-	*rootPtr=NULL;
-    return node;
-  }else{
-	if(leftChild == NULL && rightChild == NULL){
-		 Throw(ERR_NODE_UNAVAILABLE);
-	}else if((*rootPtr)->data > newNode->data){
-        node= _delRedBlackTreeVer2(&leftChild,newNode);
-    }else if((*rootPtr)->data < newNode->data){
-		node= _delRedBlackTreeVer2(&rightChild,newNode);
-	}
-  }
-  if(isNodeRed(&node)){
-    return node;
-  }
-    
-  if(isDoubleNodeBlack(&leftChild)){
-    if(isNodeRed(&rightChild)){
-        if(rightLeftGrandChild !=NULL && rightGrandChild !=NULL){
-            restructureRedRight(rootPtr);
-        }
-    }else if(isNodeBlack(&rightChild)){
-       restructureBlackRightWithBlackChildren(rootPtr);
-    }
-  }else if(isDoubleNodeBlack(&rightChild)){
-    if(isNodeRed(&leftChild)){
-        if(leftRightGrandChild!=NULL && leftGrandChild!=NULL){
-            restructureRedLeft(rootPtr);
-        }
-    }else if(isNodeBlack(&leftChild)){
-        restructureBlackLeftWithBlackChildren(rootPtr);
-    }
-  }
-  return node;
-}
-
-
-
+*********************************************************************/
