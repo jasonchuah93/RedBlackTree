@@ -29,6 +29,29 @@ int isNodeRed(Node **node){
 	}
 }
 
+/**
+	* Node : x = not possible
+	*
+	*	node			removeNode				return
+	*  --------------------------------------------------
+	*   NULL		 		NULL				 NULL
+	*	NULL				red					  0
+	*	NULL				black				  1	
+	*	NULL				double black		  x	
+	*	red					NULL				  x	
+	*	red					red					  0
+	*	red					black                 0
+	*	red					double black          x
+	*	black				NULL                  x
+	*	black				red	                  0
+	*	black				black	              0
+	*	black				double black          x
+	*	double black		NULL                  x
+	*	double black		red                   1
+	*	double black		black                 1 
+	*	double black		double black          x 
+**/
+
 int isDoubleNodeBlack(Node **node , Node *removeNode){
 	if(*node==NULL && removeNode->color =='b'){
 		return 1;

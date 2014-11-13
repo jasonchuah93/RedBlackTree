@@ -118,12 +118,22 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   return node;
 }
 
-Node *removeNextLargetSuccessor(Node **parentPtr){
-	Node *parent;
-	if((*parentPtr)->left){
-		removeNextLargetSuccessor(&(*parentPtr)->left);
+Node *removeNextLargerSuccessor(Node **rootPtr){
+	Node *removeNode, *childOfParent = *rootPtr;
+	
+	if(leftChild !=NULL){
+		removeNode = removeNextLargerSuccessor(&leftChild);
+	}else if(rightChild == NULL){
+		removeNode = *rootPtr;
+		*rootPtr = NULL;
+	}else if(leftChild == NULL){
+		removeNode = *rootPtr;
+		*rootPtr = rightChild;
+		(*rootPtr)->color = 'b';
 	}
+	return removeNode;		
 }
+
 /******************************************************]
 	********************
 		Old function 
@@ -172,4 +182,23 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
   
   return node;
 }
+
+Node *removeNextLargetSuccessor(Node **childOfParentPtr){
+	Node *removeNode, *childOfParent = *childOfParentPtr;
+	if(childOfParent->left){
+		removeNode = removeNextLargetSuccessor(&childOfParent->left);
+		if(childOfParent = *childOfParentPtr){
+			if(childOfParent->right->color == 'b'){
+				restructureBlackRightWithOneRedChild(childOfParentPtr);
+			}else{
+				restructureRedRight(childOfParentPtr,removeNode);
+			}
+		}
+	}else{
+		removeNode = *childOfParentPtr;
+		*childOfParentPtr = NULL;
+	}
+	return removeNode;		
+}
+
 *********************************************************************/

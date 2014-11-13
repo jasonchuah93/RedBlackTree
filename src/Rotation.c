@@ -3,6 +3,10 @@
 #include "Node.h"
 #include "InitNode.h"
 
+/***
+* The following functions below used for addRedBlackTree functions 
+* 
+***/
 void rightRotate(Node **nodePtr){
 	Node *currentRoot = (*nodePtr)->left; 
 	Node *newRoot = currentRoot->right;
@@ -42,10 +46,8 @@ void rightLeftRotate(Node **nodePtr){
 }
 
 /***
-*
-* IMPROVED VERSION OF EACH OF THE FUNCTION
-* ABOVE
-*
+* The following functions below used for delRedBlackTree functions 
+* 
 ***/
 void rightRotateVer2(Node **nodePtr){
 	Node *currentRoot = (*nodePtr)->left; 
