@@ -102,16 +102,18 @@ void restructureBlackLeftWithOneRedChild(Node **nodePtr){
 *************************/
 
 void restructureBlackRightWithBlackChildren(Node **nodePtr){
-	char parentColor=(*nodePtr)->color;
-	if(parentColor =='b'){
+	if(isNodeBlack(nodePtr)){
 		(*nodePtr)->color = 'd';
-	}else if(parentColor == 'r'){
+	}else if(isNodeRed(nodePtr)){
 		(*nodePtr)->color = 'b';
 	}
+    if(leftChild!=NULL){
+        leftChild->color='b';
+    }
     if(rightChild!=NULL){
         rightChild->color='r';
     }
-    rightChild->color='r';
+    
 }
 
 void restructureBlackLeftWithBlackChildren(Node **nodePtr){
@@ -121,7 +123,12 @@ void restructureBlackLeftWithBlackChildren(Node **nodePtr){
 	}else if(parentColor == 'r'){
 		(*nodePtr)->color = 'b';
 	}
-	leftChild->color='r';
+	if(leftChild!=NULL){
+        leftChild->color='r';
+    }
+    if(rightChild!=NULL){
+        rightChild->color='b';
+    }
 }
 
 /*************************
@@ -153,6 +160,11 @@ void restructureRedLeft(Node **nodePtr,Node *delNode){
 	}
 }
 
+/**************************************************
+  This function combined all the sub functions
+  for each cases
+**************************************************/
+
 void restructureRedBlackTree(Node **nodePtr,Node *removeNode){
     if(isDoubleNodeBlack(leftChild,removeNode)){
         if(isNodeRed(&rightChild)){
@@ -162,12 +174,10 @@ void restructureRedBlackTree(Node **nodePtr,Node *removeNode){
         }else if(isNodeBlack(&rightChild) && isNodeRed(&rightLeftGrandChild)){
             restructureBlackRightWithOneRedChild(nodePtr);
         }else if(isNodeBlack(&rightChild)){
-            printf("here A1\n");
-            restructureBlackRightWithBlackChildren(nodePtr);
+           restructureBlackRightWithBlackChildren(nodePtr);
         }
     }else if(isDoubleNodeBlack(rightChild,removeNode)){
-        printf("here B\n");
-        if(isNodeRed(&leftChild)){
+       if(isNodeRed(&leftChild)){
             if(leftRightGrandChild!=NULL && leftGrandChild!=NULL){
                 restructureRedLeft(nodePtr,removeNode);
             }
