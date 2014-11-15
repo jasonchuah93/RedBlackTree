@@ -42,7 +42,7 @@ void tearDown(void){}
 
 *******************************************/
 /**
-*	root		        root
+*	root		     root
 *	 |    remove 1	  |
 *	 v    -------->   v
 *	1(b)             NULL
@@ -611,7 +611,7 @@ void test_removeNextLargerSuccessor_given_5b_10r_then_remove_successor_5b_should
 *   /	successor 1		  //
 *  1(b)	 ---------->	  -
 *  / \
-* -  -
+* -   -
 *
 *****************************************/
 
@@ -654,7 +654,7 @@ void test_removeNextLargerSuccessor_given_1r_then_remove_successor_1r_should_ret
 *	 v	                          v
 *   12(b)                        12(b)
 *   / \	      successor 5		 / \
-* 5(r) 18(r)	  ------------>	 - 18(r)
+* 5(r) 18(r)  ------------>	    - 18(r)
 *  
 * 
 *
@@ -774,22 +774,98 @@ void test_removeNextLargerSuccessor_given_18b_5b_22b_1b_12b_20b_35b_2r_then_remo
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node35);
 }
 
-/**
-*	 	 root						root
-*	  	 |		remove 15			 |
-*	  	 v		 -------->			 v
-*	 	15(b)					 	30(b) 
-*	   /	\			  	 		/
-*	  5(r)	30(r)				 5(r)
-*/
-void test_delRedBlackTree_given_15b_5r_30r_then_remove_15b_should_return_25b_5r(){
-    setNode(&node5,NULL,NULL,'r');
-    setNode(&node30,NULL,NULL,'r');
-    setNode(&node15,&node5,&node30,'b');
+/******************************************************
+    Unit tests to implement removeNextLargerSuccessor
+    into function delRedBlackTree
+*******************************************************/
+/****************************************
+*
+*	root			 	 root
+*	 |                     |
+*	 v	                   v
+*	5(b) successor 5	`  1(b)
+*	/  ------------->     / \
+*  1(r)	                 -   -      
+*
+*****************************************/
+
+void test_delRedBlackTree_given_5b_1r_then_remove_successor_5b_should_return_1b(void){
+	setNode(&node1,NULL,NULL,'r');
+	setNode(&node5,&node1,NULL,'b');
+	Node *removeNode,*parentNode=&node5;
+	
+	removeNode = delRedBlackTree(&parentNode,&node5);
+    TEST_ASSERT_EQUAL_PTR(&node5,removeNode);
+    TEST_ASSERT_EQUAL_PTR(&node1,parentNode);
+    TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node1);
+}
+
+/****************************************
+*
+*	root			 	 root
+*	 |                     |
+*	 v	                   v
+*	5(b)   successor 5	` 10(b)
+*	  \  ------------->   / \
+*     10(r)	             -   -      
+*
+*****************************************/
+
+void test_delRedBlackTree_given_5b_10r_then_remove_successor_5b_should_return_10b(void){
+	setNode(&node10,NULL,NULL,'r');
+	setNode(&node5,NULL,&node10,'b');
+	Node *removeNode, *parentNode=&node5;
+	
+	removeNode = delRedBlackTree(&parentNode,&node5);
+    TEST_ASSERT_EQUAL_PTR(&node5,removeNode);
+    TEST_ASSERT_EQUAL_PTR(&node10,parentNode);
+    TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+}
+
+/****************************************
+*
+*	root			 	 root
+*	 |                     |
+*	 v	                   v
+*	5(b)   successor 5	` 10(b)
+*	/  \  ------------->   / \
+* 1(r) 10(r)	         1(r) -      
+*
+*****************************************/
+
+void test_delRedBlackTree_given_5b_1r_10r_then_remove_successor_5b_should_return_10b_1r(void){
+	setNode(&node1,NULL,NULL,'r');
+    setNode(&node10,NULL,NULL,'r');
+	setNode(&node5,&node1,&node10,'b');
+	Node *removeNode, *parentNode=&node5;
+	
+	removeNode = delRedBlackTree(&parentNode,&node5);
+    TEST_ASSERT_EQUAL_PTR(&node5,removeNode);
+    TEST_ASSERT_EQUAL_PTR(&node10,parentNode);
+    //TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node10);
+}
+
+/*********************************************************************************************
+*	  root						   root               root                  root
+*	    \		successor 22	     \                 \                      \    
+*	  	 \ 		 ------------>	      \                 \                      \
+*	 	18(r)					 	 18(r)      ----->    18(r)      ----->     18(b)
+*	   /	 \			  	 		/	  \            /       \\              /    \
+* 	12(b)	  22(b)		 		12(b)	   35(b)     12(b)      25(b)      12(r)     25(b)
+*	/ \	 	  /	\				/	\	   /   \\	  /  \      /   \      /  \      /   \
+* 10(b)13(b)20(b) 35(b)  	10(b) 	13(b) 20(b) -  10(b) 13(b) 20(b) -   10(b)13(b) 20(r) - 
+*	
+*	
+***********************************************************************************************/
+void test_delRedBlackTree_given_10b_13b_20b_35b_12b_22b_18r_then_remove_successor_22b_should_return_root_18b_12r_25b_10b_13b_20r(void){
+    setNode(&node10,NULL,NULL,'b');
+    setNode(&node13,NULL,NULL,'b');
+    setNode(&node20,NULL,NULL,'b');
+    setNode(&node35,NULL,NULL,'b');
+    setNode(&node12,&node10,&node13,'b');
+    setNode(&node22,&node20,&node35,'b');
+    setNode(&node18,&node12,&node22,'r');
     
-    Node *removeNode, *parentNode=&node15;
-    removeNode = removeNextLargerSuccessor(&parentNode);
-    TEST_ASSERT_EQUAL_PTR(&node15,removeNode);
-	//TEST_ASSERT_EQUAL_PTR(&node30,parentNode);
-    
+    Node *removeNode, *parentNode=&node18;
+    removeNode = delRedBlackTree(&parentNode,&node22);
 }

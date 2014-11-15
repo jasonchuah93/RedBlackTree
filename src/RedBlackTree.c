@@ -14,11 +14,16 @@
 #define leftRightGrandChild (*rootPtr)->left->right
 #define rightLeftGrandChild (*rootPtr)->right->left
 
-void _addRedBlackTree(Node **rootPtr,Node *newNode);
-Node *_delRedBlackTree(Node **rootPtr,Node *newNode);
-Node *_delRedBlackTreeVer2(Node **rootPtr,Node *newNode);
+void _addRedBlackTree(Node **rootPtr,Node *deleteNode);
+Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode);
+Node *_delRedBlackTreeVer2(Node **rootPtr,Node *deleteNode);
 
-void handleColor(Node **rootPtr,Node *newNode){
+/**************************
+    Sub function to deal
+    with nodes color 
+**************************/
+
+void handleColor(Node **rootPtr,Node *deleteNode){
   Node *root = *rootPtr;
   if(root->left->color == 'r' && root->right->color == 'r'){
         root->left->color ='b';
@@ -26,25 +31,28 @@ void handleColor(Node **rootPtr,Node *newNode){
         root->color ='r';
       }
 }
-
-void addRedBlackTree(Node **rootPtr,Node *newNode){
-	_addRedBlackTree(rootPtr,newNode);
+/***********************************
+    This function use to add node 
+    into the RedBlackTree
+***********************************/
+void addRedBlackTree(Node **rootPtr,Node *deleteNode){
+	_addRedBlackTree(rootPtr,deleteNode);
 	(*rootPtr)->color='b';
 }
 
-void _addRedBlackTree(Node **rootPtr,Node *newNode){
+void _addRedBlackTree(Node **rootPtr,Node *deleteNode){
 	Node *root = *rootPtr;
 	if(root == NULL){
-		*rootPtr = newNode;
+		*rootPtr = deleteNode;
     return;
   }
   if (root->left!=NULL && root->right!=NULL){
-    handleColor(rootPtr,newNode); 
+    handleColor(rootPtr,deleteNode); 
   }
-  if(root->data > newNode->data){
-	_addRedBlackTree(&root->left,newNode);
-  }else if(root->data < newNode->data){
-	_addRedBlackTree(&root->right,newNode);
+  if(root->data > deleteNode->data){
+	_addRedBlackTree(&root->left,deleteNode);
+  }else if(root->data < deleteNode->data){
+	_addRedBlackTree(&root->right,deleteNode);
   }else{
 	Throw(ERR_EQUIVALENT_NODE);
   }
@@ -72,33 +80,48 @@ void _addRedBlackTree(Node **rootPtr,Node *newNode){
   }
 }
 
-Node *delRedBlackTree(Node **rootPtr,Node *newNode){
-  Node *node =_delRedBlackTree(rootPtr,newNode);
+/***********************************
+    This function use to delete node 
+    into the RedBlackTree
+***********************************/
+
+Node *delRedBlackTree(Node **rootPtr,Node *deleteNode){
+  Node *node =_delRedBlackTree(rootPtr,deleteNode);
   if(*rootPtr!=NULL)
     (*rootPtr)->color='b';
   return node;
 }
 
-Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
-  Node *node;
-  Node *root=*rootPtr;
-  if(root==newNode){
-	*rootPtr=NULL;
+Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode){
+  Node *node , *root = *rootPtr;
+  if(root==deleteNode){
+	if(rightChild){
+        node = removeNextLargerSuccessor(rootPtr);
+    }else if(leftChild){
+        rightRotate(rootPtr);
+        node = removeNextLargerSuccessor(&rightChild);
+        (*rootPtr)->color = 'b';
+    }else{
+        *rootPtr=NULL;
+    }
     return node;
   }else{
 	if(leftChild == NULL && rightChild == NULL){
 		 Throw(ERR_NODE_UNAVAILABLE);
-    }else if((*rootPtr)->data > newNode->data){
-        node= _delRedBlackTree(&leftChild,newNode);
-    }else if((*rootPtr)->data < newNode->data){
-		node= _delRedBlackTree(&rightChild,newNode);
-        
-	}
+    }else if((*rootPtr)->data > deleteNode->data){
+        node= _delRedBlackTree(&leftChild,deleteNode);
+    }else if((*rootPtr)->data < deleteNode->data){
+		node = removeNextLargerSuccessor(rootPtr);
+        node= _delRedBlackTree(&rightChild,deleteNode);
+    }
   }
-  restructureRedBlackTree(rootPtr,newNode);
-  
+  restructureRedBlackTree(rootPtr,deleteNode);
   return node;
 }
+/*******************************************
+    This function use to remove larger node 
+    in the RedBlackTree
+*********************************************/
 
 Node *removeNextLargerSuccessor(Node **rootPtr){
 	Node *removeNode;
@@ -107,9 +130,9 @@ Node *removeNextLargerSuccessor(Node **rootPtr){
 		removeNode = removeNextLargerSuccessor(&leftChild);
     }else if(rightChild == NULL){
 		removeNode = *rootPtr;
-		*rootPtr = NULL;
+        *rootPtr = NULL;
         return removeNode;
-	}else if(leftChild == NULL || leftChild->color == 'r'){
+	}else if(leftChild == NULL && rightChild->color == 'r'){
 		removeNode = *rootPtr;
 		*rootPtr = rightChild;
 		(*rootPtr)->color = 'b';
@@ -119,26 +142,50 @@ Node *removeNextLargerSuccessor(Node **rootPtr){
 	return removeNode;
 }
 
+Node *delAndRestructureRedBlackTree(Node **rootPtr , Node *deleteNode){
+    Node *node , *root = *rootPtr;
+  if(root==deleteNode){
+    if(leftChild){
+        rightRotate(rootPtr);
+        node = removeNextLargerSuccessor(&rightChild);
+        (*rootPtr)->color = 'b';
+    }else{
+        *rootPtr=NULL;
+    }
+    return node;
+  }else{
+	if(leftChild == NULL && rightChild == NULL){
+		 Throw(ERR_NODE_UNAVAILABLE);
+    }else if((*rootPtr)->data > deleteNode->data){
+        node= _delRedBlackTree(&leftChild,deleteNode);
+    }else if((*rootPtr)->data < deleteNode->data){
+		node= _delRedBlackTree(&rightChild,deleteNode);
+        
+	}
+  }
+  restructureRedBlackTree(rootPtr,deleteNode);
+  return node;
+}
 /******************************************************]
 	********************
 		Old function 
 	********************
-Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
+Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode){
   Node *node;
   Node *root = *rootPtr;
-  if(root==newNode){
+  if(root==deleteNode){
     *rootPtr=NULL;
     return;
   }else{
 	if(root->left == NULL && root->right == NULL){
         Throw(ERR_NODE_UNAVAILABLE);
-    }else if(root->data > newNode->data){
+    }else if(root->data > deleteNode->data){
 		if(root->left->left!=NULL || root->left->right!=NULL){
 			root->left->color='b';
 			root->left->left->color='r';
 			root->left->right->color='r';
 		}
-		node=_delRedBlackTree(&root->left,newNode);
+		node=_delRedBlackTree(&root->left,deleteNode);
 		if(root->left==NULL && root->right!=NULL){
 			if(root->right->right!=NULL){
 				if(root->right->left->color=='b' && root->right->right->color=='b'){
@@ -147,13 +194,13 @@ Node *_delRedBlackTree(Node **rootPtr,Node *newNode){
 				}
 			}
 		}
-	}else if(root->data < newNode->data){
+	}else if(root->data < deleteNode->data){
 		if(root->right->left!=NULL || root->right->right!=NULL){
 			root->right->color='b';
 			root->right->left->color='r';
 			root->right->right->color='r';
 		}
-		node=_delRedBlackTree(&root->right,newNode);
+		node=_delRedBlackTree(&root->right,deleteNode);
 		if(root->left!=NULL && root->right==NULL){
 			if(root->left->left!=NULL){
 				if(root->left->left->color=='b' && root->left->right->color=='b'){
