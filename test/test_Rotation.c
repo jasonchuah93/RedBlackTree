@@ -28,12 +28,12 @@ Right Rotate
 *****************************************/
 /**
 *		root			root
-*		 /				  /
-*		10			 	 /
-*		/				5
-*	  5		--->	   / \
-*	/				  1   10
-*  1
+*		 /		        /
+*		10		       5 	 
+*	       /		      / \		
+*	      5		--->	     1  10
+*	     /				  
+*           1
 **/
                              
 void test_right_rotate_3_nodes(void){
@@ -54,13 +54,13 @@ void test_right_rotate_3_nodes(void){
 
 /**
 *		root			root
-*		 /				  /
-*		10			 	 /
-*		/ \				5
-*	  5	   15 --->	   / \
-*	/				  1   10
-*  1					   \
-*						    15	
+*		 /		         /
+*		10			/
+*	       / \		        5
+*	      5	  15   --->	       / \
+*	     /			      1   10
+*           1			           \
+*					    15	
 **/
                              
 void test_right_rotate_4_nodes(void){
@@ -84,13 +84,13 @@ void test_right_rotate_4_nodes(void){
 
 /**
 *		root			root
-*		 /				  /
-*		20			 	 /
-*		/ \				10
-*	  10  30 --->	   /  \
-*	/	\			   1  20
-*  1	15				 /  \
-*						15	30					    	
+*		 /		         /
+*		20			/
+*		/ \		       10
+*	      10  30  --->	      /  \
+*	     /	\		      1  20
+*           1	15		        /  \
+*				       15  30					    	
 **/
                              
 void test_right_rotate_5_nodes(void){
@@ -122,12 +122,12 @@ void test_right_rotate_5_nodes(void){
 
 /**
 *		root			root
-*		 /				  /
-*		10			 	 /
-*		  \			 	15
-*			15 	--->   / \
-*			 \		  10  20
-*             20
+*		 /		         /
+*		10			/
+*		  \		       15
+*		  15 	--->          / \
+*	            \		    10  20
+*                   20
 **/
                              
 void test_left_rotate_3_nodes(void){
@@ -148,13 +148,13 @@ void test_left_rotate_3_nodes(void){
 
 /**
 *		root			root
-*		 /				  /
-*		10			 	 /
-*	    /  \			15
-*	   5	15 	--->   / \
-*			 \		  10 20
-*             20	  /	  
-*					5
+*		 /			 /
+*		10			/
+*	       /  \		       15
+*	      5	  15 	--->          / \
+*	            \		     10 20
+*                   20	            /	  
+*				   5
 **/
                              
 void test_left_rotate_4_nodes(void){
@@ -178,13 +178,13 @@ void test_left_rotate_4_nodes(void){
 
 /**
 *		root			root
-*		 /				  /
-*		10			 	 /
-*	    /  \			15
-*	   5	15 	--->   /  \
-*			/ \		  10  20
-*          13  20	  /	\  
-*					5	13
+*		 /		         /
+*		10			/
+*	       /  \		       15
+*	       5  15 	--->          /  \
+*		 / \		     10  20
+*              13  20	            /  \  
+*				   5   13
 **/
                              
 void test_left_rotate_5_nodes(void){
@@ -216,12 +216,12 @@ void test_left_rotate_5_nodes(void){
 *****************************************/
 
 /**
-*		root		root	 root
-*		10			10		   7
-*	    /    -->	/	-->	  /	\
-*	  5				7		5	10
-*	   \			/
-*      7 			5
+*	root		root	 	 root
+*	 10		10		 7
+*	 /    -->	/	-->     / \
+*	5	       7	       5  10
+*	\	      /
+*        7           5
 **/
 
 void test_leftRight_rotate_3_nodes(void){
@@ -241,14 +241,14 @@ void test_leftRight_rotate_3_nodes(void){
 }
 
 /**
-*		root		root	 root
-*		10			10		   7
-*	    /    -->	/	-->	  /	\
-*	  5			   7		5	10
-*	 / \		  /        /
-*   1  7 		 5        1
-*				/
-*              1
+*	root		root	 	root
+*	 10		10		  7
+*	 /    -->	/	-->     /   \
+*	5	       7	       5    10
+*      / \	      /               /
+*     1  7 	     5               1
+*		    /
+*                  1
 **/
 
 void test_leftRight_rotate_4_nodes(void){
@@ -271,14 +271,14 @@ void test_leftRight_rotate_4_nodes(void){
 }
 
 /**
-*		root		root	 	root
-*		10			10		   	  7
-*	    / \   -->	/ \	-->	     /	\
-*	  5	  15	   7  15	   5	 10
-*	 / \		  / \        /       / \
-*   1  7 		 5   8      1		8  15
-*		\		/
-*        8      1
+*	root		root	 	root
+*	10		10		  7
+*	/ \   -->	/ \	-->     /   \
+*      5  15	       7  15	       5    10
+*     / \	      / \             /     / \
+*    1  7 	     5   8           1	   8  15
+*	 \	    /
+*         8        1
 **/
 
 void test_leftRight_rotate_6_nodes(void){
@@ -307,14 +307,14 @@ void test_leftRight_rotate_6_nodes(void){
 }
 
 /**
-*		root		root	 	root
-*		10			10		   	  7
-*	    / \   -->	/ \	 -->	 /	\
-*	  5	  15	   7  15	   5	 10
-*	 / \	\	  / \   \      / \    / \
-*   1  7 	30	 5   8  30   1	6	8  15
-*	  /	\		/ \						\
-*    6   8     1  6						30
+*	root		root	 	root
+*	10		10		  7
+*      / \   -->	/ \	 -->    /   \
+*     5	  15	       7  15	       5     10
+*    / \   \          / \   \         / \    / \
+*   1  7   30	     5   8  30       1 	 6  8  15
+*     /	\	    / \				 \
+*    6   8         1  6				 30
 **/
 
 void test_leftRight_rotate_8_nodes(void){
@@ -354,12 +354,12 @@ void test_leftRight_rotate_8_nodes(void){
 *****************************************/
 
 /**
-*		root		root	 root
-*		15			15		   13
-*	     \     -->	 \	-->	  /	 \
-*	     20	       	  13     15  20
-*	    /		       \
-*      13 		 	    20
+*	root		root	 	   root
+*	 15	         15		    13
+*	  \     -->	  \	-->	  /   \
+*	  20	       	  13             15  20
+*	  /		    \
+*        13 		    20
 **/
 
 void test_rightLeft_rotate_3_nodes(void){
@@ -379,13 +379,14 @@ void test_rightLeft_rotate_3_nodes(void){
 }
 
 /**
-*		root		root	  root
-*		15			15		   	   13
-*	    / \     -->	 \	-->	  	  /	 \
-*	  10  20	      13    	15   20
-*	     /		      / \	    /
-*      13 		 	 10  20	   10
+*	root		root	     	root
+*	 15		 15	         13
+*	/ \     -->	  \	-->      / \
+*      10  20	          13    	15   20
+*	  /		  / \	       /
+*        13 		10  20	      10
 **/
+
 
 void test_rightLeft_rotate_4_nodes(void){
 	setNode(&node13,NULL,NULL,'b');
@@ -407,14 +408,14 @@ void test_rightLeft_rotate_4_nodes(void){
 }
 
 /**
-*		root		root	      root
-*		15			15		   	   13
-*	    / \     -->	/ \	-->	  	  /	 \
-*	  10  20	   10  13    	15   20
-*	  /   / \	   /    \	    /     \    
-*    5   13  30	   5    20	   10     30
-*                        \     /
-*                        30   5
+*	root		root	        root
+*	 15		 15		 13
+*	 / \     -->	/ \	-->     / \
+*	10  20	      10  13           15  20
+*      /   / \	      /    \	      /     \    
+*     5   13  30      5    20	     10     30
+*                            \      /
+*                             30   5
 **/
 
 void test_rightLeft_rotate_6_nodes(void){
@@ -443,6 +444,7 @@ void test_rightLeft_rotate_6_nodes(void){
 }
 
 /*******************************************************************************************************************************************/
+
 void changeRootByVal(Node *node,Node *newNode){
 	node = newNode;
 	printf("changeRootByVal:node =%x\n",node);

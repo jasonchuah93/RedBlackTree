@@ -111,8 +111,7 @@ Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode){
     }else if((*rootPtr)->data > deleteNode->data){
         node= _delRedBlackTree(&leftChild,deleteNode);
     }else if((*rootPtr)->data < deleteNode->data){
-		node = removeNextLargerSuccessor(rootPtr);
-        node= _delRedBlackTree(&rightChild,deleteNode);
+		node= _delRedBlackTree(&rightChild,deleteNode);
     }
   }
   restructureRedBlackTree(rootPtr,deleteNode);
