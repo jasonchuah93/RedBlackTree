@@ -41,17 +41,18 @@ void tearDown(void){}
 ***************************************************
 /
 /**
- *	Case(1a): Sibling is black and nephew is red
+ * Case(1a): Sibling is black and nephew is red
  * Parent being black
  *      
- *       |        		       |
- *       V     left rotate     V
+ *       |        	        |
+ *       V     left rotate     	V
  *      10(b) ------------>   20(b)
- *     //   \              	/   \
- *     -	20(b)         10(b) 30(b)
- *            \            / \   / \     
- *      	30(r)         -  -  - - 
+ *     //   \                 /   \
+ *     -   20(b)           10(b) 30(b)
+ *            \            /  \   / \     
+ *           30(r)         -  -   -  - 
  */
+ 
 void test_restructureBlackRightWithOneRedChild_case_1a_parent_is_black(void){
 	setNode(&node30,NULL,NULL,'r');
     setNode(&node20,NULL,&node30,'b');
@@ -66,17 +67,18 @@ void test_restructureBlackRightWithOneRedChild_case_1a_parent_is_black(void){
 }
 
 /**
- *	Case(1a): Sibling is black and nephew is red
+ * Case(1a): Sibling is black and nephew is red
  * Parent being black
  *      
- *       |        		     	|
+ *       |        		|
  *       V     right rotate  	V
  *      10(b) ------------->   8(b)
  *      /   \\                /   \
- *     8(b)  -        		1(b) 10(b)
- *    /                		/ \   / \     
- *   1(r)              		-  -  - - 
+ *     8(b)  -        	    1(b) 10(b)
+ *    /                	    / \   / \     
+ *   1(r)              	    -  -  - - 
  */
+ 
 void test_restructureBlackLeftWithOneRedChild_case_1a_parent_is_black(void){
 	setNode(&node1,NULL,NULL,'r');
     setNode(&node8,&node1,NULL,'b');
@@ -92,17 +94,18 @@ void test_restructureBlackLeftWithOneRedChild_case_1a_parent_is_black(void){
 
 
 /**
- *	Case(1a): Sibling is black and nephew is red
+ *  Case(1a): Sibling is black and nephew is red
  * Parent being red
  *      root               root
- *       |      		     |
+ *       |                   |
  *       V     left rotate   V
  *      10(r) --------->    20(r)
  *     //   \              /   \
  *     -    20(b)        10(b) 30(b)
- *            \                  
- *      	30(r)           
+ *            \          / \    / \        
+ *           30(r)      -  -   -   - 
  */
+ 
 void test_restructureBlackRightWithOneRedChild_case_1a_parent_is_red(void){
 	
     setNode(&node30,NULL,NULL,'r');
@@ -118,16 +121,17 @@ void test_restructureBlackRightWithOneRedChild_case_1a_parent_is_red(void){
 }
 
 /**
- *	Case(1a): Sibling is black and nephew is red
+ * Case(1a): Sibling is black and nephew is red
  * Parent being red
- *     	 |        		     	|
+ *     	 |        		|
  *       V     right rotate  	V
  *      10(r) ------------->   8(r)
  *      /   \\                /   \
- *     8(b)  -        		1(b) 10(b)
- *    /                		/ \   / \     
- *   1(r)              		-  -  - - 
+ *     8(b)  -        	    1(b) 10(b)
+ *    /                	    / \   / \     
+ *   1(r)              	    -  -  - - 
  */
+ 
 void test_restructureBlackLeftWithOneRedChild_case_1a_parent_is_red(void){
 	setNode(&node1,NULL,NULL,'r');
     setNode(&node8,&node1,NULL,'b');
@@ -142,16 +146,17 @@ void test_restructureBlackLeftWithOneRedChild_case_1a_parent_is_red(void){
 }
 
 /**
- *	Case(1b): Sibling is black and nephew is red
- *      root              			   root
- *       |         						|
- *       V     rightLeft rotate 		V
- *      10(b) ----------------->   	   15(b)
- *     //   \              			   /   \
- *     -   20(b)        			10(b) 20(b)
- *          /                   
- *        15(r)           
+ * Case(1b): Sibling is black and nephew is red
+ *      root              	     root
+ *       |         		       |
+ *       V     rightLeft rotate        V
+ *      10(b) ----------------->     15(b)
+ *     //   \              	    /   \
+ *     -   20(b)        	 10(b) 20(b)
+ *          /                     / \   / \
+ *        15(r)                  -   -  -  -
  */
+ 
 void test_restructureBlackRightWithOneRedChild_case_1b(void){
 	setNode(&node15,NULL,NULL,'r');
     setNode(&node20,&node15,NULL,'b');
@@ -166,15 +171,16 @@ void test_restructureBlackRightWithOneRedChild_case_1b(void){
 }
 
 /**
- *	Case(1b): Sibling is black and nephew is red
- *       |        		     	    |
+ *  Case(1b): Sibling is black and nephew is red
+ *       |        		     	|
  *       V     leftRight rotate  	V
- *      10(b) ----------------->   9(b)
- *      /   \\                	  /   \
- *     8(b)  -        			8(b) 10(b)
- *     	\                    	/ \   / \     
- *   	9(r)              	   -  -  -   - 
+ *      10(b) ----------------->      9(b)
+ *      /   \\                	     /   \
+ *     8(b)  -        		   8(b) 10(b)
+ *     	\                    	   / \   / \     
+ *   	9(r)              	  -  -  -   - 
  */
+ 
 void test_restructureBlackLeftWithOneRedChild_case_1b(void){
 	setNode(&node9,NULL,NULL,'r');
     setNode(&node8,NULL,&node9,'b');
@@ -189,17 +195,20 @@ void test_restructureBlackLeftWithOneRedChild_case_1b(void){
 }
 
 /**
- *	Case(2a): Sibling is black and both nephew are black
- *	Parent is black lastly become double
- *      root              root
- *       |        			|
+ *  Case(2a): Sibling is black and both nephew are black
+ *  Parent is black lastly become double
+ *     root                root
+ *       |        	    |
  *       V     flip color   V
  *      10(b) --------->  10(d)
  *     //   \             /   \
- *    -		20(b)         -  20(r)
- *          /  \              /  \     
- *        15(b) 30(b)        15(b) 30(b) 
+ *    -	   20(b)         -  20(r)
+ *          /  \             /  \     
+ *        15(b) 30(b)     15(b) 30(b) 
+ *        / \   / \	   / \   / \
+ *       -  -  -  -	   -  -  -  -
  */
+ 
 void test_restructureBlackRightWithBlackChildren_case_2a(void){
 	setNode(&node15,NULL,NULL,'b');
 	setNode(&node30,NULL,NULL,'b');
@@ -216,16 +225,19 @@ void test_restructureBlackRightWithBlackChildren_case_2a(void){
 }
 
 /**
- *	Case(2a): Sibling is black and both nephew are black
- *	Parent is black lastly become double
- *      |        		     	    |
+ * Case(2a): Sibling is black and both nephew are black
+ * Parent is black lastly become double
+ *       |        		     	| 
  *       V     flip color  	        V
- *      10(b) ----------------->   10(d)
- *      /   \\                	  /   \
- *     8(b)  -        			8(r)  -
- *    /   \                    	/ \        
- *   5(b) 9(b)              5(b)  9(b)	     
- */
+ *      10(b) ----------------->      10(d)
+ *     /   \\                	     /   \
+ *    8(b)  -        		    8(r)  -
+ *   /   \                    	   / \        
+ *  5(b) 9(b)                    5(b) 9(b)	     
+ * /   \ / \                  	/ \  / \  
+ * -   - -  -                  -  -  -  -
+ **/
+ 
 void test_restructureBlackLeftWithBlackChildren_case_2a(void){
 	setNode(&node5,NULL,NULL,'b');
 	setNode(&node9,NULL,NULL,'b');
@@ -242,17 +254,20 @@ void test_restructureBlackLeftWithBlackChildren_case_2a(void){
 }
 
 /**
- *	Case(2b): Sibling is black and both nephew are black
- *	Parent is red and lastly become black
- *     root              root
- *       |        			|
- *       V     flip color   V
- *      10(r) --------->  10(b)
- *     //   \             /   \
- *    -		20(b)         -  20(r)
- *          /  \              /  \     
- *        15(b) 30(b)        15(b) 30(b) 
- */
+ * Case(2b): Sibling is black and both nephew are black
+ * Parent is red and lastly become black
+ *       root                   root
+ *        |        	         |
+ *        V     flip color       V
+ *       10(r) --------->       10(b)
+ *      //   \                 /   \
+ *    -	    20(b)             -  20(r)
+ *          /  \                  /  \     
+ *        15(b) 30(b)          15(b) 30(b) 
+ *        / \  / \              / \  / \
+ *       -  - -   -            -  - -   -
+ **/
+ 
 void test_restructureBlackRightWithBlackChildren_case_2b(void){
 	setNode(&node15,NULL,NULL,'b');
 	setNode(&node30,NULL,NULL,'b');
@@ -269,17 +284,20 @@ void test_restructureBlackRightWithBlackChildren_case_2b(void){
 }
 
 /**
- *	Case(2b): Sibling is black and both nephew are black
- *	Parent is red and lastly become black
- *      root             		   root
- *       |        		     	    |
- *       V     flip color  	        V
- *      10(r) ----------------->   10(b)
- *      /   \\                	  /   \
- *     8(b)  -        			8(r)  -
- *    /   \                    	/ \        
- *   5(b) 9(b)              5(b)  9(b)	     
- */
+ * Case(2b): Sibling is black and both nephew are black
+ * Parent is red and lastly become black
+ *        root             		root
+ *         |        		     	 |
+ *         V     flip color  	         V
+ *        10(r) ----------------->     10(b)
+ *        /   \\                       /   \
+ *       8(b)  -        	      8(r)  -
+ *      /   \                        / \        
+ *     5(b) 9(b)                  5(b)  9(b)	     
+ *    / \   / \			   / \   / \
+ *   -  -  -   -		  -  -  -   -
+ **/
+ 
 void test_restructureBlackLeftWithBlackChildren_case_2b(void){
 	setNode(&node5,NULL,NULL,'b');
 	setNode(&node9,NULL,NULL,'b');
