@@ -42,7 +42,7 @@ void tearDown(void){}
 
 *******************************************/
 /**
-*	root		     root
+*	root		         root
 *	 |    remove 1	  |
 *	 v    -------->   v
 *	1(b)             NULL
@@ -82,10 +82,10 @@ void test_delRedBlackTree_remove_2_from_tree_with_root_1_should_throw_error(void
 
 *******************************************/
 /**
-*	    root		     root
+*	    root		  root
 *	    |    remove 1	  |
-*	    v    -------->    v
-*	    2(b)             2(b)
+*	    v    -------->        v
+*	    2(b)                2(b)
 *      / 
 *    1(r)
 *

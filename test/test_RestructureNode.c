@@ -299,10 +299,10 @@ void test_restructureBlackRightWithBlackChildren_case_2b(void){
  **/
  
 void test_restructureBlackLeftWithBlackChildren_case_2b(void){
-	setNode(&node5,NULL,NULL,'b');
-	setNode(&node9,NULL,NULL,'b');
+    setNode(&node5,NULL,NULL,'b');
+    setNode(&node9,NULL,NULL,'b');
     setNode(&node8,&node5,&node9,'b');
-	setNode(&node10,&node8,NULL,'r');
+    setNode(&node10,&node8,NULL,'r');
 	
 	Node *root=&node10;
 	restructureBlackLeftWithBlackChildren(&root);
