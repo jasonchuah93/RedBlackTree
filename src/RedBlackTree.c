@@ -41,9 +41,9 @@ void addRedBlackTree(Node **rootPtr,Node *deleteNode){
 }
 
 void _addRedBlackTree(Node **rootPtr,Node *deleteNode){
-	Node *root = *rootPtr;
-	if(root == NULL){
-		*rootPtr = deleteNode;
+  Node *root = *rootPtr;
+  if(root == NULL){
+	*rootPtr = deleteNode;
     return;
   }
   if (root->left!=NULL && root->right!=NULL){
@@ -56,27 +56,26 @@ void _addRedBlackTree(Node **rootPtr,Node *deleteNode){
   }else{
 	Throw(ERR_EQUIVALENT_NODE);
   }
-	
   if(root->left!=NULL && root->right==NULL){
-		if(root->left->left !=NULL){
-			if(root->left->color == 'r' && root->left->left->color == 'r'){
-				rightRotate(rootPtr);
-			}
-		}else if(root->left->right !=NULL){
-			if(root->left->color == 'r' && root->left->right->color == 'r'){
-				leftRightRotate(rootPtr);
-			}
+	if(root->left->left !=NULL){
+		if(root->left->color == 'r' && root->left->left->color == 'r'){
+			rightRotate(rootPtr);
 		}
+	}else if(root->left->right !=NULL){
+		if(root->left->color == 'r' && root->left->right->color == 'r'){
+			leftRightRotate(rootPtr);
+		}
+	}
   }else if(root->left==NULL && root->right!=NULL){
-		if(root->right->right !=NULL){
-			if(root->right->color == 'r' && root->right->right->color == 'r'){
-				leftRotate(rootPtr);
-			}
-		}else if(root->right->left !=NULL){
-			if(root->right->color == 'r' && root->right->left->color == 'r'){
-				rightLeftRotate(rootPtr);
-			}
+	if(root->right->right !=NULL){
+		if(root->right->color == 'r' && root->right->right->color == 'r'){
+			leftRotate(rootPtr);
 		}
+	}else if(root->right->left !=NULL){
+		if(root->right->color == 'r' && root->right->left->color == 'r'){
+			rightLeftRotate(rootPtr);
+		}
+	}
   }
 }
 
@@ -99,7 +98,7 @@ Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode){
     if(rightChild){
         tempRoot = removeNextLargerSuccessor(&rightChild);
         tempLeftChild = leftChild ; tempRightChild = rightChild;
-        tempColor = (*rootPtr)->color;
+        tempColor = (*rootPtr)->color; 
         *rootPtr = tempRoot;
         leftChild=tempLeftChild; rightChild = tempRightChild;
         (*rootPtr)->color=tempColor;
