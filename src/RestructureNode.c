@@ -162,7 +162,7 @@ void restructureRedLeft(Node **nodePtr,Node *delNode){
 
 /**************************************************
   This function combined all the sub functions
-  for each cases
+  above for each cases
 **************************************************/
 
 void restructureRedBlackTree(Node **nodePtr,Node *removeNode){
@@ -177,7 +177,7 @@ void restructureRedBlackTree(Node **nodePtr,Node *removeNode){
            restructureBlackRightWithBlackChildren(nodePtr);
         }
     }else if(isDoubleNodeBlack(rightChild,removeNode)){
-       if(isNodeRed(&leftChild)){
+        if(isNodeRed(&leftChild)){
             if(leftRightGrandChild!=NULL && leftGrandChild!=NULL){
                 restructureRedLeft(nodePtr,removeNode);
             }

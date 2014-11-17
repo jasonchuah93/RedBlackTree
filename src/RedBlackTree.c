@@ -93,10 +93,17 @@ Node *delRedBlackTree(Node **rootPtr,Node *deleteNode){
 }
 
 Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode){
-  Node *node , *root = *rootPtr;
+  char tempColor;
+  Node *node , *tempRoot ,*tempLeftChild, *tempRightChild, *root = *rootPtr;
   if(root==deleteNode){
-	if(rightChild){
-        node = removeNextLargerSuccessor(rootPtr);
+    if(rightChild){
+        tempRoot = removeNextLargerSuccessor(&rightChild);
+        tempLeftChild = leftChild ; tempRightChild = rightChild;
+        tempColor = (*rootPtr)->color;
+        *rootPtr = tempRoot;
+        leftChild=tempLeftChild; rightChild = tempRightChild;
+        (*rootPtr)->color=tempColor;
+        restructureRedBlackTree(rootPtr,deleteNode);
     }else if(leftChild){
         rightRotate(rootPtr);
         node = removeNextLargerSuccessor(&rightChild);
@@ -118,53 +125,29 @@ Node *_delRedBlackTree(Node **rootPtr,Node *deleteNode){
   return node;
 }
 /*******************************************
-    This function use to remove larger node 
-    in the RedBlackTree
+    This function use to remove the most 
+    left node in the RedBlackTree
 *********************************************/
 
 Node *removeNextLargerSuccessor(Node **rootPtr){
 	Node *removeNode;
 	
-	if(leftChild !=NULL ){
-		removeNode = removeNextLargerSuccessor(&leftChild);
+	if(leftChild !=NULL){
+        removeNode = removeNextLargerSuccessor(&leftChild);
     }else if(rightChild == NULL){
 		removeNode = *rootPtr;
         *rootPtr = NULL;
         return removeNode;
-	}else if(leftChild == NULL && rightChild->color == 'r'){
+	}else if(rightChild->color == 'r'){
 		removeNode = *rootPtr;
 		*rootPtr = rightChild;
 		(*rootPtr)->color = 'b';
         return removeNode;
 	}
     restructureRedBlackTree(rootPtr,removeNode);
-	return removeNode;
+    return removeNode;
 }
 
-Node *delAndRestructureRedBlackTree(Node **rootPtr , Node *deleteNode){
-    Node *node , *root = *rootPtr;
-  if(root==deleteNode){
-    if(leftChild){
-        rightRotate(rootPtr);
-        node = removeNextLargerSuccessor(&rightChild);
-        (*rootPtr)->color = 'b';
-    }else{
-        *rootPtr=NULL;
-    }
-    return node;
-  }else{
-	if(leftChild == NULL && rightChild == NULL){
-		 Throw(ERR_NODE_UNAVAILABLE);
-    }else if((*rootPtr)->data > deleteNode->data){
-        node= _delRedBlackTree(&leftChild,deleteNode);
-    }else if((*rootPtr)->data < deleteNode->data){
-		node= _delRedBlackTree(&rightChild,deleteNode);
-        
-	}
-  }
-  restructureRedBlackTree(rootPtr,deleteNode);
-  return node;
-}
 /******************************************************]
 	********************
 		Old function 
