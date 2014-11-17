@@ -13,6 +13,11 @@
 #define leftRightGrandChild (*nodePtr)->left->right
 #define rightLeftGrandChild (*nodePtr)->right->left
 
+/********************************************************
+    This function will return 1 if the color node
+    is black
+********************************************************/
+
 int isNodeBlack(Node **node){
 	if(*node!=NULL && (*node)->color=='b'){
 		return 1;
@@ -20,6 +25,11 @@ int isNodeBlack(Node **node){
 		return 0;
 	}
 }
+
+/********************************************************
+    This function will return 1 if the color node
+    is red
+********************************************************/
 
 int isNodeRed(Node **node){
 	if(*node!=NULL && (*node)->color=='r'){

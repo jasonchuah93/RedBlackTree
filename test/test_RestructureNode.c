@@ -37,7 +37,7 @@ void tearDown(void){}
 
 /**************************************************
     COLOR NODE UNIT TESTS
-***************************************************/
+**************************************************/
 
 void test_isNodeBlack_should_return_1_if_the_node_is_black_color(void){
     setNode(&node5,NULL,NULL,'b');
