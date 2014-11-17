@@ -1025,3 +1025,42 @@ void test_delRedBlackTree_given_18b_5b_22b_1b_12b_20b_35b_2r_then_remove_success
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node20);
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,'b',&node35);
 }
+
+/************************************************************
+*
+*	 	root						root
+*	  	 |				              |
+*	  	 v		 			 	      v
+*	 	 20(b)					 	20(b) 
+*	   /	  \			  	 		/	\
+*	 5(b)	   35(b)			5(b)	  30(b)
+*	/  \		/	\			/ \		  /	 \
+*1(b)  15(b)  22(b)	60(b)	1(b)  15(b)	22(b) 60(b) 
+*				\
+*				30(r)
+***************************************************************/
+
+void test_delRedBlackTree_given_20b_5b_35b_1b_15b_22b_60b_30r_then_remove_successor_35b_should_return_20b_5b_30b_1b_15b_22b_60b(){
+
+	setNode(&node30,NULL, NULL,'r');
+	setNode(&node1,NULL,NULL,'b');
+	setNode(&node15,NULL,NULL,'b');
+	setNode(&node22,NULL,&node30,'b');
+	setNode(&node60,NULL,NULL,'b');
+	setNode(&node5,&node1,&node15,'b');
+	setNode(&node35,&node22,&node60,'b');
+	setNode(&node20,&node5,&node35,'b');
+	
+	Node *parentNode = &node20;
+	
+    delRedBlackTree(&parentNode,&node35);
+	TEST_ASSERT_EQUAL_PTR(&node20, parentNode);
+    TEST_ASSERT_EQUAL_NODE(&node5, &node30, 'b', &node20);
+    TEST_ASSERT_EQUAL_NODE(&node1, &node15, 'b', &node5);
+    TEST_ASSERT_EQUAL_NODE(&node22, &node60, 'b', &node30);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node1);
+	TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node15);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node22);
+	TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node60);
+}
+

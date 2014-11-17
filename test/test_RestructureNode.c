@@ -36,10 +36,62 @@ void setUp(void){
 void tearDown(void){}
 
 /**************************************************
+    COLOR NODE UNIT TESTS
+***************************************************/
+
+void test_isNodeBlack_should_return_1_if_the_node_is_black_color(void){
+    setNode(&node5,NULL,NULL,'b');
+    setNode(&node30,NULL,NULL,'b');
+    setNode(&node20,&node5,&node30,'b');
+    Node *nodeA = &node5;
+    Node *nodeB = &node30;
+    Node *nodeC = &node20;
+    TEST_ASSERT_EQUAL(1,isNodeBlack(&nodeA));
+    TEST_ASSERT_EQUAL(1,isNodeBlack(&nodeB));
+    TEST_ASSERT_EQUAL(1,isNodeBlack(&nodeC));
+}
+
+void test_isNodeBlack_should_return_0_if_the_node_is_not_black_color(void){
+    setNode(&node5,NULL,NULL,'r');
+    setNode(&node30,NULL,NULL,'d');
+    setNode(&node20,&node5,&node30,'r');
+    Node *nodeA = &node5;
+    Node *nodeB = &node30;
+    Node *nodeC = &node20;
+    TEST_ASSERT_EQUAL(0,isNodeBlack(&nodeA));
+    TEST_ASSERT_EQUAL(0,isNodeBlack(&nodeB));
+    TEST_ASSERT_EQUAL(0,isNodeBlack(&nodeC));
+}
+
+void test_isNodeRed_should_return_1_if_the_node_is_red_color(void){
+    setNode(&node5,NULL,NULL,'r');
+    setNode(&node30,NULL,NULL,'r');
+    setNode(&node20,&node5,&node30,'r');
+    Node *nodeA = &node5;
+    Node *nodeB = &node30;
+    Node *nodeC = &node20;
+    TEST_ASSERT_EQUAL(1,isNodeRed(&nodeA));
+    TEST_ASSERT_EQUAL(1,isNodeRed(&nodeB));
+    TEST_ASSERT_EQUAL(1,isNodeRed(&nodeC));
+}
+
+void test_isNodeRed_should_return_0_if_the_node_is_not_red_color(void){
+    setNode(&node5,NULL,NULL,'b');
+    setNode(&node30,NULL,NULL,'b');
+    setNode(&node20,&node5,&node30,'d');
+    Node *nodeA = &node5;
+    Node *nodeB = &node30;
+    Node *nodeC = &node20;
+    TEST_ASSERT_EQUAL(0,isNodeRed(&nodeA));
+    TEST_ASSERT_EQUAL(0,isNodeRed(&nodeB));
+    TEST_ASSERT_EQUAL(0,isNodeRed(&nodeC));
+}
+
+/**************************************************
 
     RESTRUCTURE NODE UNIT TESTS
-***************************************************
-/
+***************************************************/
+
 /**
  * Case(1a): Sibling is black and nephew is red
  * Parent being black
